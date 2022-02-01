@@ -1,28 +1,31 @@
 @charset "UTF-8";
-html {
-  font-size: var(--ark-font_size);
-  /*@include mb {
-      font-size: var(--ark-font_size_sp);
-  }*/
+:root {
+  --ark-mt: 2rem;
+  --ark-mt--s: 1rem;
+  --ark-mt--h: 2.5em;
+  --ark-font_size: 16px;
+  --ark-font_size_sp: 3.8vw;
+  --ark-line_height: 1.8;
+  --ark-font_family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+  --ark-pad--container: 48px;
+  --ark-color_border: rgba(200,200,200,.5);
+  --ark-color_gray: rgba(200,200,200,.15);
+  --ark-color_table_border: #ededed;
+  --ark-header_height: 0px;
+  --ark-nav-padding: .75rem .5rem;
+  --ark-hover_gray: rgba(150, 150, 150, .05);
+  --ark-scrollbar_width: 0px;
+  --ark-adminbar_height: 0px;
+  --ark-offset_y: 0px;
 }
 
-body {
-  position: relative;
-  min-width: 100%;
-  max-width: 100%;
-  overflow-x: hidden;
-  color: var(--ark-color_text);
-  font-weight: 400;
-  font-family: var(--ark-font_family);
-  line-height: 1.5;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  background-color: var(--ark-color_bg);
-  -webkit-text-size-adjust: 100%;
+body.admin-bar {
+  --ark-adminbar_height: 32px;
 }
-
-a {
-  color: var(--ark-color_link);
+@media screen and (max-width: 782px) {
+  body.admin-bar {
+    --ark-adminbar_height: 46px;
+  }
 }
 
 * {
@@ -193,38 +196,28 @@ button {
     clip: rect(0 0 0 0) !important;
   }
 }
-:root {
-  --ark-mt: 2rem;
-  --ark-mt--s: 1rem;
-  --ark-mt--h: 2.5em;
-  --ark-font_size: 16px;
-  --ark-font_size_sp: 3.8vw;
-  --ark-line_height: 1.8;
-  --ark-font_family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
-  --ark-pad--container: 48px;
-  --ark-color_border: rgba(200,200,200,.5);
-  --ark-color_gray: rgba(200,200,200,.15);
-  --ark-color_table_border: #ededed;
-  --ark-header_height: 0px;
-  --ark-nav-padding: .75rem .5rem;
-  --ark-hover_gray: rgba(150, 150, 150, .05);
-  --ark-scrollbar_width: 0px;
-  --ark-adminbar_height: 0px;
-  --ark-offset_y: 0px;
+html {
+  font-size: var(--ark-font_size);
+  /*@include mb {
+      font-size: var(--ark-font_size_sp);
+  }*/
 }
 
-body.admin-bar {
-  --ark-adminbar_height: 32px;
-}
-@media screen and (max-width: 782px) {
-  body.admin-bar {
-    --ark-adminbar_height: 46px;
-  }
+body {
+  position: relative;
+  min-width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  color: var(--ark-color_text);
+  font-weight: 400;
+  font-family: var(--ark-font_family);
+  line-height: 1.5;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  background-color: var(--ark-color_bg);
+  -webkit-text-size-adjust: 100%;
 }
 
-p {
-  color: #fff;
-}
-p span {
-  text-align: center;
+a {
+  color: var(--ark-color_link);
 }
