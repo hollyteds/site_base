@@ -2,6 +2,6 @@
 
 ## 静的サイトのためのベース環境
 
-2022.02.01
+2022.02.02
 
-SASSフォルダの整理
+cocofuro template dupulicate

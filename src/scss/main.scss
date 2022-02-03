@@ -1,6 +1,8 @@
-@forward "settings/index";
-@forward "foundation/index";
-@forward "layout/index";
-@forward "component/index";
-@forward "project/index";
-@forward "utility/index";
+@charset "UTF-8";
+
+@forward "global";
+@use "foundation";
+@use "layout";
+@use "component";
+@use "project";
+@use "utility";
