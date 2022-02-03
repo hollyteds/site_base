@@ -1,0 +1,85 @@
+//keyframes
+[visible='false'] {
+	visibility: hidden;
+}
+
+@keyframes movePattern {
+	0% {
+		top: -50%;
+		left: -50%;
+	}
+	25% {
+		left: calc( 150px - 50% );
+		top: calc( -30px - 50% );
+	}
+	50% {
+		left: calc( 100px - 50% );
+		top: calc( -20px - 50% );
+	}
+	75% {
+		left: calc( 50px - 50% );
+		top: calc( -10px - 50% );
+	}
+}
+
+@keyframes rotation {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes clipLeft {
+	from {
+		clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0);
+  }
+}
+.clipLeft {
+		animation-name: clipLeft;
+}
+
+@keyframes clipDown {
+	from {
+		clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0);
+  }
+}
+.clipDown {
+		animation-name: clipDown;
+}
+
+@keyframes standUp {
+	0% {
+		transform: rotateX(90deg);
+	}
+	100% {
+		transform: rotateX(0);
+	}
+}
+.standUp {
+	animation-timing-function: ease-out;
+	transform-origin: bottom;
+	animation-name: standUp;
+}
+
+@keyframes hangDown {
+	0% {
+		transform: rotateX(90deg);
+	}
+	100% {
+		transform: rotateX(0);
+	}
+}
+.hangDown {
+	animation-timing-function: ease-out;
+	transform-origin: top;
+	animation-name: standUp;
+}

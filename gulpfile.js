@@ -6,7 +6,7 @@ const sass = () => {
   return gulp
     .src('src/scss/*.scss')
     .pipe(sassGlob())
-    .pipe(gulpDartSass())
+    .pipe(gulpDartSass({outputStyle: 'compressed'}))
     .pipe(gulp.dest('dist/css'))
 }
 exports.sass = sass

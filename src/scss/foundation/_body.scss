@@ -1,29 +1,38 @@
-@charset "UTF-8";
+@use "../global" as g;
 
-html{
-    font-size: var(--ark-font_size);
-    /*@include mb {
-        font-size: var(--ark-font_size_sp);
-    }*/
+html {
+	font-size: 62.5%;
+	color: map-get(g.$colorSet,black);;
+	@include g.sp {
+		font-size: 46.875%;
+	}
 }
-
 body {
-    position: relative;
-    min-width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-    color: var(--ark-color_text);
-    font-weight: 400;
-    font-family: var(--ark-font_family);
-    line-height: 1.5;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    background-color: var(--ark-color_bg);
-    -webkit-text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;
+	font-family: 'Noto Sans CJK JP', sans-serif;
+	min-width: 1120px;
+	font-size: 1.6rem;
+	font-weight: 500;
+	line-height: 1.2;
+	@include g.sp {
+		min-width: inherit
+	}
+}
+a,a:link,a:visited,a:active,a:hover {
+	color: currentColor;
+	text-decoration: none;
 }
 
-
-// リンクカラー
-a {
-    color: var(--ark-color_link);
+sup {
+	vertical-align: super;
+	font-size: 0.5em;
 }
+svg {
+	transform-box: fill-box;
+}
+@include g.sp {
+	img {
+		max-width: 100%;
+		height: auto;
+	}
+} 
