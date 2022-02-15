@@ -1,11 +1,9 @@
+@use "../settings" as g;
+
 //メディアクエリ
-@mixin sp {
-	@media (max-width: (700px)) {
-		@content;
-	}
-}
-@mixin pc {
-	@media (min-width: (701px)) {
-		@content;
+
+@mixin mq($breakpoint) {
+	@media #{map-get(g.$breakpoints, $breakpoint)} {
+			@content;
 	}
 }

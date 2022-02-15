@@ -1,0 +1,29 @@
+@use "../global" as g;
+
+@each $key, $value in g.$breakpoints {
+	
+	.u-disp-#{$key} {
+		@media #{ $value } {
+			display: block;
+		}
+	}
+
+	.u-none-#{$key} {
+		@media #{ $value } {
+			display: none;
+		}
+	}
+
+	.u-flex-#{$key} {
+		@media #{ $value } {
+			display: flex;
+		}
+	}
+
+	.u-grid-#{$key} {
+		@media #{ $value } {
+			display: grid;
+		}
+	}
+
+}

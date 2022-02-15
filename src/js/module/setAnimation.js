@@ -26,7 +26,7 @@ const observeAnimation = () => {
     threshold: 0
   };
 
-  // IntersectionObserver
+  // IntersectionObserverのインスタンス化
   const observer = new IntersectionObserver(handleObserve, observerOptions);
 
   // animatedクラスを持つエレメントの処理

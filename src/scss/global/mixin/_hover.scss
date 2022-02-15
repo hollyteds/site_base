@@ -1,6 +1,8 @@
+@use "media" as g;
+
 //ホバーアクション
 @mixin hover_after_delay ($move:all, $element:false, $before:0.1s, $after:0.2s ) {
-	@media (min-width: (700px)) {
+	@include g.mq(s-min) {
 		@if $element == before or $element == after {
 			&::#{$element} {
 				transition: $move $after ease-in;

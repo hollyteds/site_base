@@ -1,0 +1,67 @@
+@use "../global" as g;
+
+.u-wbr {
+	word-break: keep-all;
+	overflow-wrap: break-word;
+}
+
+.align {
+	&Center {
+		text-align: center;
+	}
+	&Left {
+		text-align: left;
+	}
+	&Right {
+		text-align: right;
+	}
+	&Justify {
+		text-align: justify
+	}
+}
+
+@for $i from 0 through g.$lineSpaceEndValue {
+	.lh#{ $i * 1 } {
+		line-height: 0.1 * $i;
+	}
+}
+
+@if g.$fontClass {
+	@for $i from 10 through g.$fontEndValue {
+		.fs#{ $i } {
+			font-size: 0.1rem * $i;
+		}
+	}
+}
+
+@if g.$weightClass {
+	@for $i from 1 through g.$weightEndValue {
+		.fw#{ $i } {
+			font-weight: 100 * $i;
+		}
+	}
+}
+
+@each $key, $value in g.$breakpoints {
+	@media #{ $value } {
+		.align {
+			&Center-#{$key} {
+				text-align: center;
+			}
+			&Left-#{$key} {
+				text-align: left;
+			}
+			&Right-#{$key} {
+				text-align: right;
+			}
+			&Justify-#{$key} {
+				text-align: justify
+			}
+		}
+		@for $i from 0 through g.$lineSpaceEndValue {
+			.lh#{ $i * 1 }-#{$key} {
+				line-height: 0.1 * $i;
+			}
+		}
+	}
+}

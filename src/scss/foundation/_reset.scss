@@ -131,7 +131,7 @@ select,
 button {
     padding: .25em .5em;
     color: #333;
-    border: 1px solid var(--ark-color_border);
+    border: 1px solid var(--Black);
     border-radius: 0;
 }
 [type="color"]{
@@ -140,7 +140,6 @@ button {
 [type="range"]{
     vertical-align: middle;
 }
-
 
 /* 
  * Accessibility

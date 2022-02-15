@@ -1,0 +1,43 @@
+@mixin position {
+	&Center {
+		justify-content: center;
+	}
+	&Start {
+		justify-content: flex-start;
+	}
+	&End {
+		justify-content: flex-end;
+	}
+	&Space {
+		justify-content: space-around;
+	}
+	&Between {
+		justify-content: space-between;
+	}
+}
+
+.u-flex {
+	display: flex;
+
+	&-content {
+		@include position();
+	}
+	
+	&-align {
+		@include position();
+	}
+	&-direct {
+		&Col {
+			flex-direction: column;
+			&Revs {
+				flex-direction: column-reverse;
+			}
+		}
+		&Row {
+			flex-direction: row;
+			&Revs {
+				flex-direction: row-reverse;
+			}
+		}
+	}
+}

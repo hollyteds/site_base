@@ -25,22 +25,24 @@
 }
 
 
-@include g.sp {
-	.mAuto_sp {
-		margin-left: auto;
-		margin-right: auto;
-	}
-
-	@for $i from 0 through g.$spaceEndValue {
-		@if g.$spaceClass {
-			.mt#{ $i * 10 }_sp { margin-top: 2.5vw * $i; }
-			.mb#{ $i * 10 }_sp { margin-bottom: 2.5vw * $i; }
+@each $key, $value in g.$breakpoints {
+	@media #{ $value } {
+		.mAuto-#{$key} {
+			margin-left: auto;
+			margin-right: auto;
 		}
-	}
-	@for $i from 0 through g.$spaceEndValue {
-		@if g.$spacePadding {
-			.pt#{ $i * 10 }_sp { padding-top: 2.5vw * $i;	}
-			.pb#{ $i * 10 }_sp { padding-bottom: 2.5vw * $i;}
+
+		@for $i from 0 through g.$spaceEndValue {
+			@if g.$spaceClass {
+				.mt#{ $i * 10 }-#{$key} { margin-top: 1rem * $i; }
+				.mb#{ $i * 10 }-#{$key} { margin-bottom: 1rem * $i; }
+			}
+		}
+		@for $i from 0 through g.$spaceEndValue {
+			@if g.$spacePadding {
+				.pt#{ $i * 10 }-#{$key} { padding-top: 1rem * $i;	}
+				.pb#{ $i * 10 }-#{$key} { padding-bottom: 1rem * $i;}
+			}
 		}
 	}
 }

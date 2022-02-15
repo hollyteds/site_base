@@ -3,26 +3,20 @@ $spaceClass: true !default; //余白調整用のclassを生成
 $spacePadding: true !default; //余白調整用のpaddingClassは設定しない
 $spaceEndValue: 20 !default; //繰り返し数
 $fontClass: true !default; //文字サイズのclassを生成
-$fontEndValue: 40 !default; //繰り返し数
+$fontEndValue: 60 !default; //繰り返し数
 $weightClass: true !default; //文字サイズのclassを生成
 $weightEndValue: 9 !default; //繰り返し数
 $widthEndValue: 20 !default; //繰り返し数
 $lineSpaceEndValue: 20 !default; //繰り返し数
+
 //カラー
-$txtColor: #000;
 $colorSet: (
-	Main: #50a9e1,
-	FvBlue: #8fcdf5, //FV背景
-	AfterBlue: #003793,
-	Blue: #0086d1, //背景用
-	LtBackSkyBlue: #e6f2f6,//背景用
-	BackSkyBlue: #cfe5f2,//背景用
-	BtnBlue: #b9ddea, //ボタン
-	Gray: #ececec,//背景用
-	BeforeGray: #686564,//文字用
-	Orange: #f97e46,
-	LtOrange: #fff1dc,
-	White: #fff,
-	Black: #000,
+	'Main': #e26a12,
+	'White': #fff,
+	'Black': #222222,
 );
 
+$breakpoints: (
+	"md": "screen and (min-width: 701px)",
+	"lg": "screen and (min-width: 1201px)"
+) !default;
