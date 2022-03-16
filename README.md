@@ -19,9 +19,11 @@
     │  │ main.js
     │  │  
     │  └─module
-    │      fixViewport.js //375px以下はビューポートを固定させる
+    │      fixViewport.js //375px以下のビューポートを固定
     │      setAnimation.js //アニメーションの発火
-    │      webFont.js //WEBフォント同期出力
+    │      observeNavgation.js //ナビゲーションの位置取得
+    │      accordion.js //アコーディオンメニュー
+    │      webFont.js //WEBフォント同期出力        
     │          
     └─scss
         │  main.scss
@@ -43,6 +45,7 @@
         │  │   _hover.scss //ホバーのミックスイン
         │  │   _index.scss 
         │  │   _media.scss //メディアクエリのミックスイン
+        │  │   _utility.scss //ユーティリティクラス出力用
         │  │      
         │  └─settings //主に全体で使う設定
         │      _icomoon.scss //icomoon
@@ -59,12 +62,13 @@
         └─utility //ユーティリティクラス
                 _color.scss //背景、文字、線の色
                 _flex.scss //flex
-                _font.scss //文字のサイズ、ウェイト
+                _font.scss //文字のサイズ、ウェイト、文字配置、文字間、行間
                 _index.scss
                 _interaction.scss //インタラクションアニメーション
                 _margin.scss //余白
                 _media.scss //メディアクエリ
                 _position.scss //ポジション
+                _size.scss //要素サイズ
 ```
 
 ### メディアクエリ
@@ -78,8 +82,8 @@ lg →　screen and (min-width: 1201px)
 ## remの初期値
 
 ```
-sm → 1rem = 2.5vw
-md → 1rem = 10px
+defalut         → 1rem = 2.5vw
+min-width:701px → 1rem = 10px
 
 font-sizeはbodyで1.6rem
 ```
@@ -127,7 +131,7 @@ alignCenter-{mediasize}
 
 ```
 サイズ
-fs{number} 10~60
+fs{number} 10~50
 fs10 = 1rem
 fs16 = 1.6rem = 16px
 
@@ -139,14 +143,21 @@ lh{number} 0~20
 
 ※lhのみ末尾に-{mediasize}でスタイル上書き
 lh10-{mediasize}
+
+文字間
+ls{number} -10~10
+
 ```
 
 ### 表示切替
 
 ```
-u-disp-{mediasize}　→　display block
-u-none-{mediasize}　→　display none
-u-flex-{mediasize}　→　display flex
+u-disp-{mediasize}  　→　display block
+u-inline-{mediasize}　→　display inline
+u-ib-{mediasize}      →　display inline-block
+u-none-{mediasize}　  →　display none
+u-flex-{mediasize}    →　display flex
+u-grid-{mediasize}    →　display grid
 ```
 
 ## 環境構成

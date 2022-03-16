@@ -2,7 +2,7 @@
  * アニメーションのセッティング
  */
 
-const observeAnimation = () => {
+ export const observeAnimation = () => {
 
   // animatedクラスを持つエレメントを取得
   const targetElements = document.querySelectorAll(".animated");
@@ -22,7 +22,7 @@ const observeAnimation = () => {
   // IntersectionObserverのオプション設定
   const observerOptions = {
     root: null,
-    rootMargin: "-30% 0px",
+    rootMargin: "-100px 0px",
     threshold: 0
   };
 
@@ -41,6 +41,3 @@ const observeAnimation = () => {
   });
 
 };
-
-// ぺージロード時に処理させる
-document.addEventListener("DOMContentLoaded", observeAnimation, false);

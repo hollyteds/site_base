@@ -34,5 +34,7 @@ module.exports = {
   // ES5(IE11等)向けの指定
   target: ["web", "es5"],
 
-	mode: "production",
+	//mode: "production",
+  mode: "development",
+  devtool: false,
 };

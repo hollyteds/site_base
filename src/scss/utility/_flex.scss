@@ -1,18 +1,18 @@
-@mixin position {
+@mixin position ($key) {
 	&Center {
-		justify-content: center;
+		#{$key}: center;
 	}
 	&Start {
-		justify-content: flex-start;
+		#{$key}: flex-start;
 	}
 	&End {
-		justify-content: flex-end;
+		#{$key}: flex-end;
 	}
 	&Space {
-		justify-content: space-around;
+		#{$key}: space-around;
 	}
 	&Between {
-		justify-content: space-between;
+		#{$key}: space-between;
 	}
 }
 
@@ -20,11 +20,11 @@
 	display: flex;
 
 	&-content {
-		@include position();
+		@include position('justify-content');
 	}
 	
 	&-align {
-		@include position();
+		@include position('align-items');
 	}
 	&-direct {
 		&Col {

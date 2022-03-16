@@ -1,48 +1,20 @@
 @use "../global" as g;
 
+@include g.outputUtilityClass( g.$u-margin, 'mt', 'margin-top');
+@include g.outputUtilityClass( g.$u-margin, 'mb', 'margin-bottom');
+@include g.outputUtilityClass( g.$u-padding, 'pt', 'padding-top');
+@include g.outputUtilityClass( g.$u-padding, 'pb', 'padding-bottom');
+
 .mAuto {
 	margin-left: auto;
 	margin-right: auto;
 }
-
-@if g.$spaceClass {
-	@for $i from 0 through g.$spaceEndValue {
-		.mt#{ $i * 10 } {
-			margin-top: 1rem * $i;
-		}
-		.mb#{ $i * 10 } {
-			margin-bottom: 1rem * $i;
-		}
-		@if g.$spacePadding {
-			.pt#{ $i * 10 } {
-				padding-top: 1rem * $i;
-			}
-			.pb#{ $i * 10 } {
-				padding-bottom: 1rem * $i;
-			}
-		}
-	}
-}
-
 
 @each $key, $value in g.$breakpoints {
 	@media #{ $value } {
 		.mAuto-#{$key} {
 			margin-left: auto;
 			margin-right: auto;
-		}
-
-		@for $i from 0 through g.$spaceEndValue {
-			@if g.$spaceClass {
-				.mt#{ $i * 10 }-#{$key} { margin-top: 1rem * $i; }
-				.mb#{ $i * 10 }-#{$key} { margin-bottom: 1rem * $i; }
-			}
-		}
-		@for $i from 0 through g.$spaceEndValue {
-			@if g.$spacePadding {
-				.pt#{ $i * 10 }-#{$key} { padding-top: 1rem * $i;	}
-				.pb#{ $i * 10 }-#{$key} { padding-bottom: 1rem * $i;}
-			}
 		}
 	}
 }
