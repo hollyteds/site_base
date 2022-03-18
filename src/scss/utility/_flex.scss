@@ -17,7 +17,6 @@
 }
 
 .u-flex {
-	display: flex;
 
 	&-content {
 		@include position('justify-content');

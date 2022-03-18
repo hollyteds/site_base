@@ -43,3 +43,23 @@ img {
 		height: initial;
 	}
 } 
+
+ruby {
+	text-indent: 0px;
+	> rt {
+			display: block;
+			font-size: 50%;
+			text-align: start; 
+	}
+}
+
+rt {
+	text-indent: 0px;
+	line-height: normal;
+	text-emphasis: none;
+}
+
+_::-webkit-full-page-media, _:future, :root ruby > rt {
+	zoom: 0.5;
+	font-size: -webkit-ruby-text;
+}
