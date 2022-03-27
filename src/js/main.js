@@ -2,6 +2,7 @@
 import "./module/webFont";
 import { observeAnimation } from "./module/setAnimation";
 import { observeNav } from "./module/observeNavigation";
+import { openGlobalNavigation, removeClassOnHTML } from "./module/openGlobalNavigation";
 import { Accordion } from "./module/accordion";
 import { switchViewport } from "./module/fixViewport";
 import SmoothScroll from "smooth-scroll";
@@ -48,29 +49,13 @@ const acToggle = new Accordion(AcBtns, AcDatas);
 const menuLinkElement = ".js-nav-menu a";
 const addOpenClassName = "is-open";
 const menuBtnId = "menu-btn";
-const overlayID = "overlay";
-const removeClassOnHTML = className => {
-	document.documentElement.classList.remove( className );
-}
-
-document.getElementById( menuBtnId ).addEventListener('click', () => {
-	document.documentElement.classList.toggle( addOpenClassName );
-});
-document.getElementById( overlayID ).addEventListener('click', () => {
-	removeClassOnHTML( addOpenClassName );
-});
-
-const menus = document.querySelectorAll( menuLinkElement );
-for(let i = 0; i < menus.length; i++) {
-		menus[i].addEventListener('click',  () => {
-			removeClassOnHTML( addOpenClassName );
-		}, false);
-}
+const overlayId = "overlay";
 
 // ぺージロード時に処理
 document.addEventListener("DOMContentLoaded", () => {
 	observeAnimation();
 	observeNav();
+	openGlobalNavigation(menuLinkElement, addOpenClassName, menuBtnId, overlayId);
 	switchViewport();
 }, false);
 
