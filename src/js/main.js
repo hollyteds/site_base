@@ -34,9 +34,10 @@ const swiper = new Swiper(".mySwiper", {
 });
 
 //スムーススクロール
-const scroll = new SmoothScroll('a[href*="#"]',{
+new SmoothScroll('a[href*="#"]',{
   header: '[data-scroll-header]',
 	speed: 150,
+	updateURL: false, 
 	//speedAsDuration: true,
 });
 
