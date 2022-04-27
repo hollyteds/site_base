@@ -1,0 +1,17 @@
+<%
+const baseMeta = {
+	title: 'ページタイトル',
+	description: 'ディスクリプション',
+	url: '',
+	site_name: '',
+	ogImage: '',
+	favicon: { 
+		1616: '',
+		svg: '',
+		apple: '',
+	},
+};
+%>
+<%- include( 'template-parts/_header',{ baseMeta:baseMeta } ) %>
+
+<%- include( 'template-parts/_footer',{ baseMeta:baseMeta } ) %>
