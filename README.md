@@ -12,7 +12,14 @@
 │  
 ├─dist //ビルド
 │  ├─css 
-│  └─js       
+│  └─js
+├─ejs //EJSファイル
+│  │     index.ejs
+│  │    
+│  └─template-parts //共通テンプレート
+│         _header.ejs //ヘッダー
+│         _footer.ejs //フッター
+│ 
 ├─fonts //icomoonのアイコン格納
 └─src
     ├─js
@@ -170,7 +177,7 @@ u-grid-{mediasize}    →　display grid
 
 ### npm run build
 
-sassとjsを出力する（圧縮版）
+sassとjsとhtmlを出力する（圧縮版）
 
 ### npm run build:js
 
@@ -179,6 +186,10 @@ jsのみを出力する（圧縮版）
 ### npm run watch
 
 jsのwatchモード（あんまり使ってない）
+
+### npm run ejs
+
+EJSからhtmlを書き出し
 
 ### npm run css
 
