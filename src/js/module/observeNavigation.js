@@ -2,7 +2,7 @@
  * ナビゲーションの現在地表示
  */
 
- export const observeNav= () => {
+ export default () => {
 
 	const observerOptions = {
     root: null,

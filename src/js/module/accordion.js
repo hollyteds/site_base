@@ -2,7 +2,7 @@
  * Accordion
  */
 
-export class Accordion {
+export default class {
   constructor(AcBtns, AcDatas) {
     this.isResize = true;
     this.w = window.innerWidth;

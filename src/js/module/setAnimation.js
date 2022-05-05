@@ -2,7 +2,7 @@
  * アニメーションのセッティング
  */
 
- export const observeAnimation = () => {
+ export default () => {
 
   // animatedクラスを持つエレメントを取得
   const targetElements = document.querySelectorAll(".animated");

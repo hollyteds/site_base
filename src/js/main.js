@@ -1,12 +1,16 @@
 // import
-import "./module/webFont";
-import { observeAnimation } from "./module/setAnimation";
-import { observeNav } from "./module/observeNavigation";
-import { openGlobalNavigation, removeClassOnHTML } from "./module/openGlobalNavigation";
-import { Accordion } from "./module/accordion";
-import { switchViewport } from "./module/fixViewport";
+import loadWebFont from "./module/loadWebFont";
+import observeAnimation from "./module/setAnimation";
+//import observeNav from "./module/observeNavigation";
+//import { openGlobalNavigation, removeClassOnHTML } from "./module/openGlobalNavigation";
+import Accordion from "./module/accordion";
+import switchViewport from "./module/fixViewport";
 import SmoothScroll from "smooth-scroll";
 import Swiper, { Navigation, Pagination, Autoplay, Scrollbar } from 'swiper';
+
+
+const WebFont = ['Source+Sans+Pro','Noto+Serif+JP']; //Googleフォントの指定 (Array)
+const minWindowWidth = 375; //最小ウインドウ幅
 
 //スライダー（swiper）
 const swiper = new Swiper(".mySwiper", {
@@ -47,21 +51,25 @@ const AcDatas = document.querySelectorAll(".js-data"); //開かせる要素
 const acToggle = new Accordion(AcBtns, AcDatas);
 
 //ナビメニュー
-const menuLinkElement = ".js-nav-menu a";
-const addOpenClassName = "is-open";
-const menuBtnId = "menu-btn";
-const overlayId = "overlay";
+//const menuLinkElement = ".js-nav-menu a";
+//const addOpenClassName = "is-open";
+//const menuBtnId = "menu-btn";
+//const overlayId = "overlay";
 
-// ぺージロード時に処理
+
+//イベント **********************************************************
+
+//ぺージロード時に処理
 document.addEventListener("DOMContentLoaded", () => {
+	loadWebFont( WebFont );
 	observeAnimation();
-	observeNav();
-	openGlobalNavigation(menuLinkElement, addOpenClassName, menuBtnId, overlayId);
-	switchViewport();
+	//observeNav();
+	//openGlobalNavigation(menuLinkElement, addOpenClassName, menuBtnId, overlayId);
+	switchViewport( minWindowWidth );
 }, false);
 
 // リサイズ時に処理
-document.addEventListener('resize', () => {
-	switchViewport();
-	removeClassOnHTML( addOpenClassName );
+window.addEventListener('resize', () => {
+	switchViewport( minWindowWidth );
+	//removeClassOnHTML( addOpenClassName );
 }, false);
