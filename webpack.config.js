@@ -1,3 +1,5 @@
+const TerserPlugin = require("terser-webpack-plugin");
+
 module.exports = {
   // メインとなるJavaScriptファイル（エントリーポイント）
   entry: `./src/js/main.js`,
@@ -37,4 +39,11 @@ module.exports = {
 	mode: "production",
   //mode: "development",
   //devtool: false,
+
+  // ライセンスファイルを生成しない
+  optimization: {
+    minimizer: [new TerserPlugin({
+      extractComments: false,
+    })],
+  },
 };

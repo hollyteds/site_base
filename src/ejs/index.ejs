@@ -1,4 +1,8 @@
 <%
+const global = {
+	breakPoint: 767,
+};
+
 const baseMeta = {
 	title: 'ページタイトル',
 	description: 'ディスクリプション',
@@ -11,6 +15,9 @@ const baseMeta = {
 		apple: '',
 	},
 };
-%><%- include( 'template-parts/_header',{ baseMeta:baseMeta } ) %>
+%><%- include( 'template-parts/_header',{ baseMeta } ) %>
 
-<%- include( 'template-parts/_footer',{ baseMeta:baseMeta } ) %>
+<!-- 例 -->
+<%- include( 'template-parts/_picture',{ global, img:{ src:'img_buyflow03', extns:'jpg', w:170, h:348, alt:'', separate:true } } ) %>
+
+<%- include( 'template-parts/_footer',{ baseMeta } ) %>

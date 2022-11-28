@@ -1,0 +1,4 @@
+<%
+const imageSetSP = !img.separate ? '' :`\<source media="(max-width: ${global.breakPoint}px)" srcset="images/${img.src}-sp.${img.extns}">`;
+const imageSetPC = `\<img src="images/${img.src}.${img.extns}" width="${img.w}" height="${img.h}" loading="lazy" decoding="async">`;
+%><picture><%- imageSetSP + imageSetPC  %></picture>
