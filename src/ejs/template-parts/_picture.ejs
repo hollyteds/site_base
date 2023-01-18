@@ -1,4 +1,45 @@
 <%
-const imageSetSP = !img.separate ? '' :`\<source media="(max-width: ${global.breakPoint}px)" srcset="images/${img.src}-sp.${img.extns}">`;
-const imageSetPC = `\<img src="images/${img.src}.${img.extns}" width="${img.w}" height="${img.h}" loading="lazy" decoding="async">`;
-%><picture><%- imageSetSP + imageSetPC  %></picture>
+
+/**
+ * @src = src,extns,
+ *  
+*/
+
+//属性を代入
+let options = img.attr;
+const breakPoint = global.breakPoint;
+
+//属性のデフォルト、設定ない場合に代入しておく
+if (!( 'alt' in options )) options.alt = '';
+if (!( 'loading' in options )) options.loading = 'lazy';
+if (!( 'decoding' in options )) options.decoding = 'async';
+
+//attrの初期化
+let attr = '';
+
+//属性を出力形式にする
+Object.keys(options).forEach( key => {
+	attrName = key === 'className' ? 'class' : key;
+	attr += ' ' + attrName + '="' + options[key] + '"';
+});
+
+//出力変数の初期化
+let imageSet = '';
+let imageSetEnd = '';
+
+//ブレイクポイントもしくはseparateがtrueの場合に、ブレイクポイントに合わせた画像を出力する
+if( img.separate && Object.keys(breakPoint) ) {
+	%><picture><%
+	Object.keys(breakPoint).forEach( key => {
+
+		imageSet += `\<source media="(max-width: ${breakPoint[key]}px)" srcset="images/${img.src}-${key}.${img.extns}">`;
+
+	});
+	imageSetEnd = `\</picture>`;
+}
+
+imageSet += `\<img data-src="images/${img.src}.${img.extns}"${attr}>`;
+
+console.log( imageSet + imageSetEnd );
+
+%><%- imageSet + imageSetEnd %>

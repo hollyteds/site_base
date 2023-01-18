@@ -6,8 +6,8 @@ import observeAnimation from "./module/setAnimation";
 import Accordion from "./module/accordion";
 import switchViewport from "./module/fixViewport";
 import SmoothScroll from "smooth-scroll";
+import lazyload from "lazyload";
 import Swiper, { Navigation, Pagination, Autoplay, Scrollbar } from 'swiper';
-
 
 const WebFont = ['Source+Sans+Pro','Noto+Serif+JP']; //Googleフォントの指定 (Array)
 const minWindowWidth = 375; //最小ウインドウ幅
@@ -63,13 +63,11 @@ const acToggle = new Accordion(AcBtns, AcDatas);
 document.addEventListener("DOMContentLoaded", () => {
 	loadWebFont( WebFont );
 	observeAnimation();
-	//observeNav();
-	//openGlobalNavigation(menuLinkElement, addOpenClassName, menuBtnId, overlayId);
-	switchViewport( minWindowWidth );
+	switchViewport(minWindowWidth);
+	lazyload();
 }, false);
 
 // リサイズ時に処理
 window.addEventListener('resize', () => {
 	switchViewport( minWindowWidth );
-	//removeClassOnHTML( addOpenClassName );
 }, false);
