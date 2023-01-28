@@ -1,23 +1,23 @@
 <%
 const global = {
-	breakPoint: 767,
+	breakPoint: { sp:767,tab:1200 },
+	path: '',
+	meta: {
+		title: 'ページタイトル',
+		description: 'ディスクリプション',
+		url: '',
+		site_name: '',
+		ogImage: '',
+		favicon: { 
+			1616: '',
+			svg: '',
+			apple: '',
+		},
+	}
 };
-
-const baseMeta = {
-	title: 'ページタイトル',
-	description: 'ディスクリプション',
-	url: '',
-	site_name: '',
-	ogImage: '',
-	favicon: { 
-		1616: '',
-		svg: '',
-		apple: '',
-	},
-};
-%><%- include( 'template-parts/_header',{ baseMeta } ) %>
+%><%- include( 'template-parts/_header',{ baseMeta: global.meta } ) %>
 
 <!-- 例 -->
-<%- include( 'template-parts/_picture',{ global, img:{ src:'', extns:'png', separate:false, attr:{ width:930, height:300, alt:'', className:'pp', decoding:'sync', loading:'eager' } } } ) %>
+<%- include( 'template-parts/_picture',{ global, img:{ webp: true, src:'gg', extns:'png', separate: true, srcset: [ '2x' ], attr:{ width:930, height:300, alt:'', className:'pp', decoding:'sync', loading:'eager' } } } ) %>
 
-<%- include( 'template-parts/_footer',{ baseMeta } ) %>
+<%- include( 'template-parts/_footer',{ baseMeta: global.meta } ) %>

@@ -7,15 +7,74 @@
 
 //属性を代入
 let options = img.attr;
+
+//
 const breakPoint = global.breakPoint;
+const path = global.path;
+
+//webp対応するかどうか
+const hasWebp = ( 'webp' in img ) ? img.webp : false;
+
+//メディアクエリに対応するかどうか
+const hasMediaQuery = ( img.separate ) && ( Object.keys(breakPoint).length !== 0 );
 
 //属性のデフォルト、設定ない場合に代入しておく
 if (!( 'alt' in options )) options.alt = '';
 if (!( 'loading' in options )) options.loading = 'lazy';
 if (!( 'decoding' in options )) options.decoding = 'async';
 
+//メディアクエリ用の出力ソース初期化
+let mqSource  = ``;
+
+//ブレイクポイントもしくはseparateがtrueの場合に、ブレイクポイントに合わせた画像を出力する
+if( hasMediaQuery ) {
+
+	Object.keys(breakPoint).forEach( key => {
+
+		let webp = ``;
+		let mq = ``;
+
+		mq += `\<source media="(max-width: ${breakPoint[key]}px)" srcset="`;
+
+		img.srcset.forEach( size => {
+			mq += `${path}images/${img.src}-${key}@${size}.${img.extns} ${size}, `;
+		});
+		
+		mq += `${path}images/${img.src}-${key}.${img.extns} 1x"`;
+		
+		//srcsetをそのままWebp用に拡張子だけ置き換える
+		webp += mq.replace( new RegExp(img.extns, 'g'), `${img.extns}.webp` );
+		webp += ` type="image/webp">`;
+
+		mq += `>`;
+		
+		//hasWebpがtrueならwebpの出力も追加
+		mqSource += hasWebp ? webp + mq : mq;
+
+	});
+
+}
+
 //attrの初期化
 let attr = '';
+let srcset = ``;
+let webpSource = ``;
+
+//srcset属性の追加
+if ( 'srcset' in img ) {
+
+	img.srcset.forEach( size => {
+		srcset += `${path}images/${img.src}@${size}.${img.extns} ${size}, `;
+	});
+	srcset += `${path}images/${img.src}.${img.extns} 1x`;
+	attr += ` srcset="${srcset}"`;
+	attr += ` sizes="(max-width: ${options.width}px) 100vw, ${options.width}px"`;
+
+	webpSource += `\<source `;
+	webpSource += attr.replace( new RegExp(img.extns, 'g'), `${img.extns}.webp` );
+	webpSource += ` type="image/webp">`;
+
+}
 
 //属性を出力形式にする
 Object.keys(options).forEach( key => {
@@ -24,22 +83,17 @@ Object.keys(options).forEach( key => {
 });
 
 //出力変数の初期化
-let imageSet = '';
-let imageSetEnd = '';
+let imageSource = '';
 
-//ブレイクポイントもしくはseparateがtrueの場合に、ブレイクポイントに合わせた画像を出力する
-if( img.separate && Object.keys(breakPoint) ) {
-	%><picture><%
-	Object.keys(breakPoint).forEach( key => {
+if( hasMediaQuery || hasWebp ) { %><picture><% }
 
-		imageSet += `\<source media="(max-width: ${breakPoint[key]}px)" srcset="images/${img.src}-${key}.${img.extns}">`;
+	imageSource += hasMediaQuery ? mqSource : ``;
 
-	});
-	imageSetEnd = `\</picture>`;
-}
+	imageSource += hasWebp ? webpSource : ``;
 
-imageSet += `\<img data-src="images/${img.src}.${img.extns}"${attr}>`;
+	imageSource += `\<img src="${path}images/${img.src}.${img.extns}"${attr}>`;
 
-console.log( imageSet + imageSetEnd );
+	console.log( imageSource );
 
-%><%- imageSet + imageSetEnd %>
+%><%- imageSource %>
+<% if( hasMediaQuery || hasWebp ) { %></picture><% } %>
