@@ -1,0 +1,28 @@
+version: '3'
+services:
+  web:
+    container_name: "nginx"
+    image: nginx:latest
+    volumes:
+      - ./docker/web/default.conf:/etc/nginx/conf.d/default.conf
+      - ./dist:/var/www/html
+      - ./dist:/usr/share/nginx/html
+    ports:
+      - "9090:80"
+    depends_on:
+      - php
+    links:  
+      - php
+  php:
+    container_name: "php"
+    image: php:7.4-fpm
+    volumes:
+      - ./dist:/var/www/html
+      - ./dist:/usr/share/nginx/html
+  apache:
+    container_name: "apache"
+    image: httpd:latest
+    platform: linux/amd64
+    volumes:
+      - ./dist:/var/www/html
+      - ./dist:/usr/share/nginx/html
