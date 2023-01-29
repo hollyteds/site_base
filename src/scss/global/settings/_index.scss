@@ -1,3 +1,5 @@
 @forward "variable";
-@forward "keyframes";
-@forward "icomoon";
+// アニメーションはjsのgsapライブラリに切り替える
+// @forward "keyframes";
+// アイコンはsvgコードを直で使うので当面使わないようにする
+// @forward "icomoon";

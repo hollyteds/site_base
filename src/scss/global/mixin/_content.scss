@@ -1,0 +1,8 @@
+@use "../settings" as g;
+
+//コンテンツのmargin auto用
+@mixin content_center( $width :var(--contents-width) ) {
+	max-width: $width;
+	margin-left: auto;
+	margin-right: auto;
+}

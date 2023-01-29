@@ -2,7 +2,7 @@
 
 //ホバーアクション
 @mixin hover_after_delay ($move:all, $element:false, $before:0.1s, $after:0.2s ) {
-	@include g.mq(md) {
+	@include g.mq(tab) {
 		@if $element == before or $element == after {
 			&::#{$element} {
 				transition: $move $after ease-in;

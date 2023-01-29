@@ -1,8 +1,6 @@
 <%
-
 /**
  * @src = src,extns,
- *  
 */
 
 //属性を代入
@@ -16,7 +14,7 @@ const path = global.path;
 const hasWebp = ( 'webp' in img ) ? img.webp : false;
 
 //メディアクエリに対応するかどうか
-const hasMediaQuery = ( img.separate ) && ( Object.keys(breakPoint).length !== 0 );
+const hasMediaQuery = ( img.isMediaQuery ) && ( Object.keys(breakPoint).length !== 0 );
 
 //属性のデフォルト、設定ない場合に代入しておく
 if (!( 'alt' in options )) options.alt = '';
@@ -57,6 +55,8 @@ if( hasMediaQuery ) {
 
 //attrの初期化
 let attr = '';
+
+
 let srcset = ``;
 let webpSource = ``;
 
@@ -87,6 +87,7 @@ let imageSource = '';
 
 if( hasMediaQuery || hasWebp ) { %><picture><% }
 
+	//メディアクエリが
 	imageSource += hasMediaQuery ? mqSource : ``;
 
 	imageSource += hasWebp ? webpSource : ``;
@@ -95,5 +96,4 @@ if( hasMediaQuery || hasWebp ) { %><picture><% }
 
 	console.log( imageSource );
 
-%><%- imageSource %>
-<% if( hasMediaQuery || hasWebp ) { %></picture><% } %>
+%><%- imageSource %><% if( hasMediaQuery || hasWebp ) { %></picture><% } %>

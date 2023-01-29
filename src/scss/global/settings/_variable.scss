@@ -16,7 +16,7 @@ $u-margin: (
 );
 
 $u-padding: (
-	use: true,
+	use: false,
 	start: 0,
 	end: 200,
 	interval: 10,
@@ -25,7 +25,7 @@ $u-padding: (
 );
 
 $u-width: (
-	use: true,
+	use: false,
 	start: 5,
 	end: 100,
 	interval: 5,
@@ -61,7 +61,7 @@ $u-lineHeight: (
 );
 
 $u-letterSpace: (
-	use: true,
+	use: false,
 	start: -10,
 	end: 10,
 	interval: 1,
@@ -71,13 +71,22 @@ $u-letterSpace: (
 
 //カラー
 $colorSet: (
-	'Main': #e26a12,
-	'White': #fff,
-	'Black': #222222,
+	'primary'			: #008ba7,
+	'secondary'		: #004961,
+	'lt-secondary': #c4d5db,
+	'attention'	 	: #ed5b26,
+	'white'				: #fff,
+	'black'				: #222222,
 );
 
 //ブレイクポイント
 $breakpoints: (
-	"md": "screen and (min-width: 701px)",
-	"lg": "screen and (min-width: 1201px)"
+	"sp": "screen and (max-width: 767px)",
+	"tab": "screen and (min-width: 768px)",
+	"pc": "screen and (min-width: 1200px)"
 ) !default;
+
+//root変数
+$variableMap: (
+	'contents-width'	: '1200px',
+);

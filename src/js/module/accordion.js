@@ -6,24 +6,25 @@
 
 export default class {
   /**
-   * 
    * @param {*} AcBtns 
    * 発火対象のelement 
    * @param {*} AcDatas
    * 開閉させるエレメント、
    */
   constructor(AcBtns, AcDatas) {
+
+    //アコーディオン対象が１つも取得できない場合は実行しない
+    if (AcBtns.length === 0 || AcDatas.length === 0) return;
+    
     this.isResize = true;
     this.w = window.innerWidth;
     this.HeightArray = [];
     this.AcBtns = AcBtns;
     this.AcDatas = AcDatas;
 
-    //アコーディオン対象が１つも取得できない場合は実行しない
-    if (AcBtns.length === 0 || AcDatas.length === 0) return;
-
     this.onSwitch = this.onSwitch.bind(this);
     this.init();
+
   }
 
   /**

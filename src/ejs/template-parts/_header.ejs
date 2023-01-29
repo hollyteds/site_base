@@ -8,27 +8,27 @@
 
 <meta charset="UTF-8">
 <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
-<title><%= baseMeta.title %></title>
+<title><%= meta.title %></title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 <meta name="format-detection" content="telephone=no">
-<meta name="description" content="<%= baseMeta.description %>">
-<meta property="og:title" content="<%= baseMeta.title %>">
+<meta name="description" content="<%= meta.description %>">
+<meta property="og:title" content="<%= meta.title %>">
 <meta property="og:type" content="website">
-<meta property="og:url" content="<%= baseMeta.url %>">
-<meta property="og:site_name" content="<%= baseMeta.site_name %>">
-<meta property="og:description" content="<%= baseMeta.description %>">
-<meta property="og:image" content="<%= baseMeta.ogImage %>">
+<meta property="og:url" content="<%= meta.url %>">
+<meta property="og:site_name" content="<%= meta.site_name %>">
+<meta property="og:description" content="<%= meta.description %>">
+<meta property="og:image" content="<%= meta.ogImage %>">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" sizes="16x16" href="<%= baseMeta.favicon.size16 %>" />
-<link rel="icon" type="image/svg+xml" href="<%= baseMeta.favicon.svg %>">
-<link rel="apple-touch-icon" href="<%= baseMeta.favicon.apple %>">
+<link rel="icon" sizes="16x16" href="<%= meta.favicon.size16 %>" />
+<link rel="icon" type="image/svg+xml" href="<%= meta.favicon.svg %>">
+<link rel="apple-touch-icon" href="<%= meta.favicon.apple %>">
 <script type="application/ld+json">
 	{
 		"@context": "http://schema.org",
 		"@type": "Article",
 		"headline": "",
-		"url": "<%= baseMeta.url %>",
+		"url": "<%= meta.url %>",
 		"author": {
 			"@type": "Organization",
 			"name": ""
@@ -37,7 +37,7 @@
 			"@type": "Organization",
 			"name": ""
 		},
-		"description": "<%= baseMeta.description %>"
+		"description": "<%= meta.description %>"
 	}
 </script>
 <link rel="stylesheet" href="css/main.css">
@@ -48,6 +48,8 @@
 
 	<!-- End Google Tag Manager (noscript) -->
 
+<div class="l-global-wrapper">
+	
 	<header class="l-header">
 		
 	</header>

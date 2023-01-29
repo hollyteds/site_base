@@ -1,103 +1,143 @@
 # site_base
 
-ディレクトリ構成
+## 環境構築
 
-```
-│  gulpfile.js //sassの出力設定
-│  index.html
-│  package-lock.json
-│  package.json //npmパッケージ構成
-│  README.md //このデータ
-│  webpack.config.js //jsの出力データ
-│  
-├─dist //ビルド
-│  ├─css 
-│  └─js
-├─ejs //EJSファイル
-│  │     index.ejs
-│  │    
-│  └─template-parts //共通テンプレート
-│         _header.ejs //ヘッダー
-│         _footer.ejs //フッター
-│ 
-├─fonts //icomoonのアイコン格納
-└─src
-    ├─js
-    │  │ main.js
-    │  │  
-    │  └─module
-    │      fixViewport.js //375px以下のビューポートを固定
-    │      setAnimation.js //アニメーションの発火
-    │      observeNavgation.js //ナビゲーションの位置取得
-    │      accordion.js //アコーディオンメニュー
-    │      webFont.js //WEBフォント同期出力        
-    │          
-    └─scss
-        │  main.scss
-        │  swiper-bundle.min.scss
-        │  
-        ├─component //コンポーネント
-        │      _index.scss
-        │      
-        ├─foundation //全体に使うの緩やかなスタイル
-        │      _body.scss //全体に使う緩やかなスタイル
-        │      _index.scss
-        │      _reset.scss //Reset
-        │      _root.scss //CSS変数など
-        │      
-        ├─global //変数・ミックスイン等 @fowardで関連付け
-        │  │  _index.scss
-        │  │  
-        │  ├─mixin //ミックスイン
-        │  │   _hover.scss //ホバーのミックスイン
-        │  │   _index.scss 
-        │  │   _media.scss //メディアクエリのミックスイン
-        │  │   _utility.scss //ユーティリティクラス出力用
-        │  │      
-        │  └─settings //主に全体で使う設定
-        │      _icomoon.scss //icomoon
-        │      _index.scss
-        │      _keyframes.scss //アニメーション
-        │      _variable.scss //色やユーティリティクラスの出力数
-        │          
-        ├─layout //位置関係
-        │      _index.scss
-        │      
-        ├─project //主に使い切りのクラス
-        │      _index.scss
-        │      
-        └─utility //ユーティリティクラス
-                _color.scss //背景、文字、線の色
-                _flex.scss //flex
-                _font.scss //文字のサイズ、ウェイト、文字配置、文字間、行間
-                _index.scss
-                _interaction.scss //インタラクションアニメーション
-                _margin.scss //余白
-                _media.scss //メディアクエリ
-                _position.scss //ポジション
-                _size.scss //要素サイズ
+### npm install
+
+　パッケージのインストール
+
+### docker compose up (-d)
+
+　仮想サーバーのビルド
+（docker-compose.yml）を参照する
+
+　dockerディレクトリのconfファイルはnginxにphpを連携させるために必要
+　ないとphpはダウンロード扱いになってしまう
+
+## ビルドコマンド
+
+### npm run build
+
+　distディレクトリに以下すべてのデータをビルド
+　HTML/JS(minify)/CSS(minify)/画像（WEBP含む）/font
+
+### npm run ejs-css
+
+　HTMLとCSS(minify)をビルド生成する
+
+### npm run js
+
+　JSを圧縮なしでビルド
+
+### npm run js:min
+
+　JS(minify)をビルド
+
+### npm run ejs
+
+　HTMLデータをビルド
+
+### npm run css
+
+　cssを圧縮なしでビルド
+
+### npm run css:min
+
+　css(minify)をビルド）
+
+### npm run img
+
+　画像の圧縮とWEBPを出力
+
+## ディレクトリ構成
+
+```jsx
+src
+├── ejs
+│   ├── index.ejs 
+│   └── template-parts **//共通テンプレート**
+│       ├── _footer.ejs //フッター
+│       ├── _header.ejs //ヘッダー
+│       └── _picture.ejs //imgタグの出力用
+├── fonts //icomoonを使う場合はここに格納する
+│   ├── icomoon.eot
+│   ├── icomoon.svg
+│   ├── icomoon.ttf
+│   └── icomoon.woff
+├── images //画像はここに格納
+├── js
+│   ├── main.js
+│   └── module
+│       ├── Accordion.js //アコーディオンのインスタンス
+│       ├── FixHeader.js //スクロール固定ヘッダーのインスタンス
+│       ├── MenuButton.js //メニューボタン実装用インスタンス
+│       ├── fixViewport.js //スモールデバイス対策ビューポート切替モジュール
+│       ├── loadWebFont.js //GoogleWebfont非同期読み込みモジュール
+│       ├── observeNavigation.js //今は使わない
+│       ├── setAnimation.js //CSSアニメーションの発火設定用モジュール
+│       └── setGSAPAnimation.js // GSAPアニメーション設定モジュール
+└── scss
+    ├── component
+    │   ├── _footer.scss
+    │   ├── _header.scss
+    │   └── _index.scss
+    ├── foundation
+    │   ├── _body.scss
+    │   ├── _index.scss
+    │   ├── _reset.scss
+    │   └── _root.scss
+    ├── global
+    │   ├── _index.scss
+    │   ├── mixin
+    │   │   ├── _content.scss
+    │   │   ├── _hover.scss
+    │   │   ├── _index.scss
+    │   │   ├── _media.scss
+    │   │   └── _utility.scss
+    │   └── settings
+    │       ├── _icomoon.scss //無効化中
+    │       ├── _index.scss
+    │       ├── _keyframes.scss //無効化中
+    │       └── _variable.scss
+    ├── layout
+    │   └── _index.scss
+    ├── main.scss
+    ├── project
+    │   └── _index.scss
+    ├── swiper-bundle.min.scss
+    └── utility
+        ├── _color.scss
+        ├── _flex.scss //無効化中
+        ├── _font.scss
+        ├── _index.scss
+        ├── _interaction.scss //無効化中
+        ├── _margin.scss
+        ├── _media.scss
+        ├── _position.scss //無効化中
+        └── _size.scss //無効化中
 ```
 
 ### メディアクエリ
 
-```
+```jsx
 default
-md →　screen and (min-width: 701px)
-lg →　screen and (min-width: 1201px)
+sp →　screen and (max-width: 767px)
+tab →　screen and (min-width: 768px)
+pc →　screen and (min-width: 1200px)
 ```
 
 ## remの初期値
 
-```
-defalut         → 1rem = 2.5vw
-min-width:701px → 1rem = 10px
-
-font-sizeはbodyで1.6rem
+```jsx
+defalut → 1rem = 10px
+ ※font-sizeはbody要素で1.6rem → 16px
+sp.     → 1rem = 7.5px
+ ※font-sizeはbody要素で1.6rem → 12px
 ```
 
 ### 余白
 
-```
+```jsx
 $spaceEndValueで繰り返し数を設定
 
 default
@@ -105,26 +145,28 @@ $spaceEndValue = 20
 
 クラス名の10 = 1rem
 mt{number} 10～200 (10ずつ)　→　margin-top
-mb{number} 10～200 (10ずつ)　→　margin-bottom
-pt{number} 10～200 (10ずつ)　→　padding-top
-pb{number} 10～200 (10ずつ)　→　padding-bottom
+mb{number} 10～200 (10ずつ)　→　margin-bottom //無効化
+pt{number} 10～200 (10ずつ)　→　padding-top //無効化
+pb{number} 10～200 (10ずつ)　→　padding-bottom //無効化
 mAuto = margin auto
 
 ※末尾に-{mediasize}でスタイル上書き
 mt10-{mediasize}
+
+※mt以外ほぼ使ってないのでデフォルトでは無効化
 ```
 
 ### 色指定
 
-```
-bg{color} //背景色
-txt{color} //文字色
-bdr{color} //線の色
+```jsx
+bg-{color} //背景色
+txt-{color} //文字色
+bdr-{color} //線の色
 ```
 
 ### 文字配置
 
-```
+```jsx
 alignCenter
 alignLeft
 alignRight
@@ -136,7 +178,7 @@ alignCenter-{mediasize}
 
 ### 文字関係
 
-```
+```jsx
 サイズ
 fs{number} 10~50
 fs10 = 1rem
@@ -153,12 +195,11 @@ lh10-{mediasize}
 
 文字間
 ls{number} -10~10
-
 ```
 
 ### 表示切替
 
-```
+```jsx
 u-disp-{mediasize}  　→　display block
 u-inline-{mediasize}　→　display inline
 u-ib-{mediasize}      →　display inline-block
@@ -166,35 +207,3 @@ u-none-{mediasize}　  →　display none
 u-flex-{mediasize}    →　display flex
 u-grid-{mediasize}    →　display grid
 ```
-
-## 環境構成
-
-### npm install
-
-でOK
-
-## ビルドコマンド
-
-### npm run build
-
-sassとjsとhtmlを出力する（圧縮版）
-
-### npm run build:js
-
-jsのみを出力する（圧縮版）
-
-### npm run watch
-
-jsのwatchモード（あんまり使ってない）
-
-### npm run ejs
-
-EJSからhtmlを書き出し
-
-### npm run css
-
-cssのみを出力する（無圧縮版、マップ付）
-
-### npm run css:min
-
-cssのみを出力する（圧縮版）

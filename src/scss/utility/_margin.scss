@@ -1,10 +1,11 @@
 @use "../global" as g;
 
 @include g.outputUtilityClass( g.$u-margin, 'mt', 'margin-top');
-@include g.outputUtilityClass( g.$u-margin, 'mb', 'margin-bottom');
-@include g.outputUtilityClass( g.$u-padding, 'pt', 'padding-top');
-@include g.outputUtilityClass( g.$u-padding, 'pb', 'padding-bottom');
+// @include g.outputUtilityClass( g.$u-margin, 'mb', 'margin-bottom');
+// @include g.outputUtilityClass( g.$u-padding, 'pt', 'padding-top');
+// @include g.outputUtilityClass( g.$u-padding, 'pb', 'padding-bottom');
 
+//マージンオートはミックスインで実装するのでユーティリティクラスとしては基本使わない
 .mAuto {
 	margin-left: auto;
 	margin-right: auto;

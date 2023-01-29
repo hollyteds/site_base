@@ -1,41 +1,58 @@
-// import
-import loadWebFont from "./module/loadWebFont";
-import observeAnimation from "./module/setAnimation";
-//import observeNav from "./module/observeNavigation";
-//import { openGlobalNavigation, removeClassOnHTML } from "./module/openGlobalNavigation";
-import Accordion from "./module/accordion";
-import switchViewport from "./module/fixViewport";
-import SmoothScroll from "smooth-scroll";
-import lazyload from "lazyload";
-import Swiper, { Navigation, Pagination, Autoplay, Scrollbar } from 'swiper';
+import loadWebFont from "./module/loadWebFont"; //GoogleWebfontの遅延読み込み
+import FixHeader from "./module/FixHeader"; //スクロール時の固定フッター設定用インスタンス
+import setGsapAnimation from "./module/setGsapAnimation"; //GSAPアニメーションを設定するモジュール
 
-const WebFont = ['Source+Sans+Pro','Noto+Serif+JP']; //Googleフォントの指定 (Array)
+// css用アニメーションを設定する場合はsetAnimationモジュールを使う
+// import observeAnimation from "./module/setAnimation";
+
+//これはいらないかも
+//import observeNav from "./module/observeNavigation";
+
+import MenuButton from "./module/MenuButton"; //メニューボタンの発火モジュール
+import Accordion from "./module/Accordion"; //アコーディオンの設定用インスタンス
+import switchViewport from "./module/fixViewport"; //スモールデバイス用対策モジュール
+import SmoothScroll from "smooth-scroll";
+// import Swiper, { Navigation, Pagination, Autoplay, Scrollbar } from 'swiper';
+
+ //Googleフォントの指定 (Array)
+const WebFont = ['Source+Sans+Pro','Noto+Serif+JP'];
+
 const minWindowWidth = 375; //最小ウインドウ幅
 
 //スライダー（swiper）
-const swiper = new Swiper(".mySwiper", {
-	modules: [Navigation, Pagination, Autoplay,Scrollbar],
-	slidesPerView: 3,
-	spaceBetween: 15,
-	autoplay: {
-		delay: 1500,
-  },
-	/*
-	navigation: {
-		nextEl: ".swiper-button-next",
-		prevEl: ".swiper-button-prev",
-	},
-	pagination: {
-		el: ".swiper-pagination",
-		clickable: true,
-	},
-	breakpoints: {
-		700: {
-      slidesPerView: 5,
-      spaceBetween: 30
-    }
-  }*/
-});
+// const swiper = new Swiper(".mySwiper", {
+// 	modules: [Navigation, Pagination, Autoplay,Scrollbar],
+// 	slidesPerView: 3,
+// 	spaceBetween: 15,
+// 	autoplay: {
+// 		delay: 1500,
+//   },
+// 	navigation: {
+// 		nextEl: ".swiper-button-next",
+// 		prevEl: ".swiper-button-prev",
+// 	},
+// 	pagination: {
+// 		el: ".swiper-pagination",
+// 		clickable: true,
+// 	},
+// 	breakpoints: {
+// 		700: {
+//       slidesPerView: 5,
+//       spaceBetween: 30
+//     }
+//   }
+// });
+
+// メニューボタン
+// const menuButton = document.getElementById('menu-button');
+// const overlay = document.getElementById('overlay');
+// const menuElement = document.getElementById('global-nav');
+// const menuLinkElements = menuElement.querySelectorAll('a');
+// const navMenu = new MenuButton('is-nav-open', 'menu-button' );
+
+// navMenu.toggle(menuButton);
+// navMenu.addCloseEvent(overlay);
+// menuLinkElements.forEach(elem => { navMenu.addCloseEvent(elem); });
 
 //スムーススクロール
 new SmoothScroll('a[href*="#"]',{
@@ -45,16 +62,14 @@ new SmoothScroll('a[href*="#"]',{
 	//speedAsDuration: true,
 });
 
+//固定ヘッダー
+const observedElement = document.getElementById('content');
+new FixHeader(observedElement);
+
 //アコーディオン
 const AcBtns = document.querySelectorAll(".js-btn"); //ボタン
 const AcDatas = document.querySelectorAll(".js-data"); //開かせる要素
-const acToggle = new Accordion(AcBtns, AcDatas);
-
-//ナビメニュー
-//const menuLinkElement = ".js-nav-menu a";
-//const addOpenClassName = "is-open";
-//const menuBtnId = "menu-btn";
-//const overlayId = "overlay";
+new Accordion(AcBtns, AcDatas);
 
 
 //イベント **********************************************************
@@ -62,9 +77,8 @@ const acToggle = new Accordion(AcBtns, AcDatas);
 //ぺージロード時に処理
 document.addEventListener("DOMContentLoaded", () => {
 	loadWebFont( WebFont );
-	observeAnimation();
+	setGsapAnimation();
 	switchViewport(minWindowWidth);
-	lazyload();
 }, false);
 
 // リサイズ時に処理

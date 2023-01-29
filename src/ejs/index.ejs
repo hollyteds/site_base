@@ -15,9 +15,21 @@ const global = {
 		},
 	}
 };
-%><%- include( 'template-parts/_header',{ baseMeta: global.meta } ) %>
+%><%- include( 'template-parts/_header',{ meta: global.meta } ) %>
+
+<div id="content" class="l-content">
+
+<!-- TOP AREA -->
+
+<div id="main" class="l-main">
 
 <!-- 例 -->
-<%- include( 'template-parts/_picture',{ global, img:{ webp: true, src:'gg', extns:'png', separate: true, srcset: [ '2x' ], attr:{ width:930, height:300, alt:'', className:'pp', decoding:'sync', loading:'eager' } } } ) %>
+<%- include( 'template-parts/_picture',{ global, img:{ webp: true, src:'img_home-esports', extns:'jpg', isMediaQuery: false, srcset: [ '2x' ], attr:{ width:960, height:620, alt:'', className:'pp', decoding:'sync', loading:'eager' } } } ) %>
 
-<%- include( 'template-parts/_footer',{ baseMeta: global.meta } ) %>
+
+</div><!-- l-main -->
+
+</div><!-- l-content -->
+
+
+<%- include( 'template-parts/_footer',{ meta: global.meta } ) %>
