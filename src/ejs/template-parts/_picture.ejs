@@ -8,7 +8,7 @@ let options = img.attr;
 
 //
 const breakPoint = global.breakPoint;
-const path = global.path;
+const path = global.path ? global.path : '';
 
 //webp対応するかどうか
 const hasWebp = ( 'webp' in img ) ? img.webp : false;
@@ -34,12 +34,16 @@ if( hasMediaQuery ) {
 
 		mq += `\<source media="(max-width: ${breakPoint[key]}px)" srcset="`;
 
-		img.srcset.forEach( size => {
-			mq += `${path}images/${img.src}-${key}@${size}.${img.extns} ${size}, `;
-		});
-		
-		mq += `${path}images/${img.src}-${key}.${img.extns} 1x"`;
-		
+		//srcsetの指定がある場合の出力
+		if(img.srcset) {
+			img.srcset.forEach( size => {
+				mq += `${path}images/${img.src}-${key}@${size}.${img.extns} ${size}, `;
+			});
+		}
+
+		mq += `${path}images/${img.src}-${key}.${img.extns}`;
+		mq += img.srcset ? ' 1x"' : '"';
+
 		//srcsetをそのままWebp用に拡張子だけ置き換える
 		webp += mq.replace( new RegExp(img.extns, 'g'), `${img.extns}.webp` );
 		webp += ` type="image/webp">`;
@@ -56,7 +60,6 @@ if( hasMediaQuery ) {
 //attrの初期化
 let attr = '';
 
-
 let srcset = ``;
 let webpSource = ``;
 
@@ -70,11 +73,11 @@ if ( 'srcset' in img ) {
 	attr += ` srcset="${srcset}"`;
 	attr += ` sizes="(max-width: ${options.width}px) 100vw, ${options.width}px"`;
 
-	webpSource += `\<source `;
-	webpSource += attr.replace( new RegExp(img.extns, 'g'), `${img.extns}.webp` );
-	webpSource += ` type="image/webp">`;
-
 }
+
+	webpSource += `\<source `;
+	webpSource += 'srcset' in img ? attr.replace( new RegExp(img.extns, 'g'), `${img.extns}.webp` ) : ` srcset="${path}images/${img.src}.${img.extns}.webp"`;
+	webpSource += ` type="image/webp">`
 
 //属性を出力形式にする
 Object.keys(options).forEach( key => {
@@ -87,7 +90,6 @@ let imageSource = '';
 
 if( hasMediaQuery || hasWebp ) { %><picture><% }
 
-	//メディアクエリが
 	imageSource += hasMediaQuery ? mqSource : ``;
 
 	imageSource += hasWebp ? webpSource : ``;
