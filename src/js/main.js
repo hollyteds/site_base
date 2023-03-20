@@ -1,6 +1,7 @@
 import loadWebFont from "./module/loadWebFont"; //GoogleWebfontの遅延読み込み
 import FixHeader from "./module/FixHeader"; //スクロール時の固定フッター設定用インスタンス
 import setGsapAnimation from "./module/setGsapAnimation"; //GSAPアニメーションを設定するモジュール
+import defineInnerWidthUnit from "./module/defineInnerWidthUnit"; //スクロールバーを除いた幅を1/100の単位にするモジュール
 
 // css用アニメーションを設定する場合はsetAnimationモジュールを使う
 // import observeAnimation from "./module/setAnimation";
@@ -79,9 +80,11 @@ document.addEventListener("DOMContentLoaded", () => {
 	loadWebFont( WebFont );
 	setGsapAnimation();
 	switchViewport(minWindowWidth);
+	defineInnerWidthUnit('ix');
 }, false);
 
 // リサイズ時に処理
 window.addEventListener('resize', () => {
-	switchViewport( minWindowWidth );
+	switchViewport(minWindowWidth);
+	defineInnerWidthUnit('ix');
 }, false);
