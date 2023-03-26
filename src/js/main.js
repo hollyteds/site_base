@@ -1,26 +1,26 @@
-import loadWebFont from "./module/loadWebFont"; //GoogleWebfontの遅延読み込み
-import FixHeader from "./module/FixHeader"; //スクロール時の固定フッター設定用インスタンス
-import setGsapAnimation from "./module/setGsapAnimation"; //GSAPアニメーションを設定するモジュール
-import defineInnerWidthUnit from "./module/defineInnerWidthUnit"; //スクロールバーを除いた幅を1/100の単位にするモジュール
+import loadWebFont from "./module/loadWebFont"; // GoogleWebfontの遅延読み込み
+import FixHeader from "./module/FixHeader"; // スクロール時の固定フッター設定用インスタンス
+import setGsapAnimation from "./module/setGsapAnimation"; // GSAPアニメーションを設定するモジュール
+import defineInnerWidthUnit from "./module/defineInnerWidthUnit"; // スクロールバーを除いた幅を1/100の単位にするモジュール
 
 // css用アニメーションを設定する場合はsetAnimationモジュールを使う
 // import observeAnimation from "./module/setAnimation";
 
-//これはいらないかも
-//import observeNav from "./module/observeNavigation";
+// これはいらないかも
+// import observeNav from "./module/observeNavigation";
 
-import MenuButton from "./module/MenuButton"; //メニューボタンの発火モジュール
-import Accordion from "./module/Accordion"; //アコーディオンの設定用インスタンス
-import switchViewport from "./module/fixViewport"; //スモールデバイス用対策モジュール
+// import MenuButton from "./module/MenuButton"; // メニューボタンの発火モジュール
+import Accordion from "./module/Accordion"; // アコーディオンの設定用インスタンス
+import switchViewport from "./module/fixViewport"; // スモールデバイス用対策モジュール
 import SmoothScroll from "smooth-scroll";
 // import Swiper, { Navigation, Pagination, Autoplay, Scrollbar } from 'swiper';
 
- //Googleフォントの指定 (Array)
+ // Googleフォントの指定 (Array)
 const WebFont = ['Source+Sans+Pro','Noto+Serif+JP'];
 
-const minWindowWidth = 375; //最小ウインドウ幅
+const minWindowWidth = 375; // 最小ウインドウ幅
 
-//スライダー（swiper）
+// スライダー（swiper）
 // const swiper = new Swiper(".mySwiper", {
 // 	modules: [Navigation, Pagination, Autoplay,Scrollbar],
 // 	slidesPerView: 3,
@@ -55,27 +55,27 @@ const minWindowWidth = 375; //最小ウインドウ幅
 // navMenu.addCloseEvent(overlay);
 // menuLinkElements.forEach(elem => { navMenu.addCloseEvent(elem); });
 
-//スムーススクロール
-new SmoothScroll('a[href*="#"]',{
+// スムーススクロール
+new SmoothScroll('a[href*="#"]',{ // eslint-disable-line
   header: '[data-scroll-header]',
 	speed: 150,
 	updateURL: false, 
-	//speedAsDuration: true,
+	// speedAsDuration: true,
 });
 
-//固定ヘッダー
+// 固定ヘッダー
 const observedElement = document.getElementById('content');
-new FixHeader(observedElement);
+new FixHeader(observedElement); // eslint-disable-line
 
-//アコーディオン
-const AcBtns = document.querySelectorAll(".js-btn"); //ボタン
-const AcDatas = document.querySelectorAll(".js-data"); //開かせる要素
-new Accordion(AcBtns, AcDatas);
+// アコーディオン
+const AcBtns = document.querySelectorAll(".js-btn"); // ボタン
+const AcDatas = document.querySelectorAll(".js-data"); // 開かせる要素
+new Accordion(AcBtns, AcDatas); // eslint-disable-line
 
 
-//イベント **********************************************************
+// イベント **********************************************************
 
-//ぺージロード時に処理
+// ぺージロード時に処理
 document.addEventListener("DOMContentLoaded", () => {
 	loadWebFont( WebFont );
 	setGsapAnimation();

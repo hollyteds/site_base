@@ -13,7 +13,7 @@ export default class {
    */
   constructor(AcBtns, AcDatas) {
 
-    //アコーディオン対象が１つも取得できない場合は実行しない
+    // アコーディオン対象が１つも取得できない場合は実行しない
     if (AcBtns.length === 0 || AcDatas.length === 0) return;
     
     this.isResize = true;
@@ -32,7 +32,7 @@ export default class {
    */
   setStyle() {
     this.AcDatas.forEach(ele => {
-      let h = ele.children[0].clientHeight
+      const h = ele.children[0].clientHeight
       ele.style.height = 0;
       ele.style.overflow = "hidden";
       ele.style.transition = "height 0.2s";
@@ -81,7 +81,7 @@ export default class {
     this.HeightArray.length = 0;
 
     this.AcDatas.forEach(ele => {
-      let h = ele.children[0].clientHeight
+      const h = ele.children[0].clientHeight
       if (ele.parentNode.classList.contains("is-open")) ele.style.height = h + "px";
       this.HeightArray.push(h);
     });
@@ -98,7 +98,7 @@ export default class {
       if (this.isResize) {
         requestAnimationFrame(() => {
           this.isResize = true;
-          if (this.w != window.innerWidth) {
+          if (this.w !== window.innerWidth) {
             this.onResize();
           };
         });

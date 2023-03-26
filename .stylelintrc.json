@@ -1,0 +1,12 @@
+{
+  "extends": [
+			"stylelint-config-standard-scss"
+	],
+	"rules": {
+			"no-duplicate-selectors": true,
+			"selector-no-qualifying-type": true,
+			"selector-no-combinator": true,
+			"function-url-data-uris": "always",
+			"rule-empty-line-before": "always"
+	}
+}

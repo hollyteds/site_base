@@ -1,5 +1,4 @@
 @use "../global" as g;
-
 @include g.outputUtilityClass( g.$u-fontSize, 'fs', 'font-size');
 @include g.outputUtilityClass( g.$u-fontWeight, 'fw', 'font-weight');
 @include g.outputUtilityClass( g.$u-lineHeight, 'lh', 'line-height');
@@ -11,15 +10,19 @@
 }
 
 .align {
+
 	&Center {
 		text-align: center;
 	}
+
 	&Left {
 		text-align: left;
 	}
+
 	&Right {
 		text-align: right;
 	}
+
 	&Justify {
 		text-align: justify
 	}
@@ -27,6 +30,7 @@
 
 @each $key, $value in g.$breakpoints {
 	@media #{ $value } {
+
 		.align {
 			&Center-#{$key} {
 				text-align: center;

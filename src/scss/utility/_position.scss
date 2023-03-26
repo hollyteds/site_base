@@ -1,15 +1,19 @@
 @use "../global" as g;
 
 .pos {
+
 	&Rel {
 		position: relative;
 	}
+
 	&Abs {
 		position: absolute;
 	}
+
 	&Fixed {
 		position: fixed;
 	}
+
 	&Sticky {
 		position: sticky;
 	}
@@ -17,6 +21,7 @@
 
 @each $key, $value in g.$breakpoints {
 	@media #{ $value } {
+
 		.pos {
 			&Rel-#{$key} {
 				position: relative;
