@@ -17,7 +17,7 @@ export default () => {
 
 	const animations = [
 		{
-			classeName: ".animated.fadeIn", setting: { opacity: 0, scale: 0.9 }
+			classeName: ".animated.fadeIn", setting: { scale: 0.9 }
 		},
 		{
 			classeName: ".animated.fadeInUp", setting: { y: 100, scale: 0.9 }
@@ -58,4 +58,4 @@ export default () => {
 
 	});
 
-}
+};

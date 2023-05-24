@@ -3,7 +3,7 @@
 // ------------------------------------------------------
 
 export default fontFamilies => {
-	if( !Array.isArray(fontFamilies) ) { 
+	if (!Array.isArray(fontFamilies)) {
 		console.log('Font data type must be array.');
 		return;
 	}
@@ -11,7 +11,7 @@ export default fontFamilies => {
 	window.WebFontConfig = {
 		google: { families: fontFamilies },
 		active: () => {
-				sessionStorage.fonts = true;
+			sessionStorage.fonts = true;
 		}
 	};
 
@@ -22,4 +22,4 @@ export default fontFamilies => {
 	const s = document.getElementsByTagName('script')[0];
 	s.parentNode.insertBefore(wf, s);
 	
-}
+};

@@ -5,7 +5,7 @@
 
 export default (variableName) => {
 	const headerWidth = document.querySelector('.l-header').clientWidth;
-	const innerWidth = headerWidth / 100
+	const innerWidth = headerWidth / 100;
 	const rootDocument = document.documentElement;
 	rootDocument.style.setProperty(`--${variableName}`, `${innerWidth}px`);
-}
+};
