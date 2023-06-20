@@ -1,18 +1,34 @@
-import loadWebFont from "./module/loadWebFont"; // GoogleWebfontの遅延読み込み
-import FixHeader from "./module/FixHeader"; // スクロール時の固定フッター設定用インスタンス
-import setGsapAnimation from "./module/setGsapAnimation"; // GSAPアニメーションを設定するモジュール
-import defineInnerWidthUnit from "./module/defineInnerWidthUnit"; // スクロールバーを除いた幅を1/100の単位にするモジュール
+/* GoogleWebfontの遅延読み込み */
+import loadWebFont from "./module/loadWebFont";
 
-// css用アニメーションを設定する場合はsetAnimationモジュールを使う
+/* GSAPアニメーションを設定するモジュール */
+import setGsapAnimation from "./module/setGsapAnimation";
+
+/*  スクロールオブザーバー */
+import ScrollObserver from "./module/ScrollObserver";
+
+/* スクロールバーを除いた幅を1/100の単位にするモジュール */
+// import defineInnerWidthUnit from "./module/defineInnerWidthUnit";
+
+/* css用アニメーションを設定用モジュール */
 // import observeAnimation from "./module/setAnimation";
 
-// これはいらないかも
+/* ナビゲーションに現在地置を反映させる */
 // import observeNav from "./module/observeNavigation";
 
-// import MenuButton from "./module/MenuButton"; // メニューボタンの発火モジュール
-import Accordion from "./module/Accordion"; // アコーディオンの設定用インスタンス
-import switchViewport from "./module/fixViewport"; // スモールデバイス用対策モジュール
+/* メニューボタンの発火モジュール */
+// import MenuButton from "./module/MenuButton"; 
+
+/* アコーディオンの設定用インスタンス */
+import Accordion from "./module/Accordion";
+
+/* スモールデバイス用対策モジュール */
+import switchViewport from "./module/fixViewport";
+
+/* スムーススクロール */
 import SmoothScroll from "smooth-scroll";
+
+// スライダー
 // import Swiper, { Navigation, Pagination, Autoplay, Scrollbar } from 'swiper';
 
  // Googleフォントの指定 (Array)
@@ -44,7 +60,7 @@ const minWindowWidth = 375; // 最小ウインドウ幅
 //   }
 // });
 
-// メニューボタン
+/* メニュー周りのエレメント定義 */
 // const menuButton = document.getElementById('menu-button');
 // const overlay = document.getElementById('overlay');
 // const menuElement = document.getElementById('global-nav');
@@ -55,7 +71,7 @@ const minWindowWidth = 375; // 最小ウインドウ幅
 // navMenu.addCloseEvent(overlay);
 // menuLinkElements.forEach(elem => { navMenu.addCloseEvent(elem); });
 
-// スムーススクロール
+/* スムーススクロール */
 new SmoothScroll('a[href*="#"]',{ // eslint-disable-line
   header: '[data-scroll-header]',
 	speed: 150,
@@ -63,15 +79,14 @@ new SmoothScroll('a[href*="#"]',{ // eslint-disable-line
 	// speedAsDuration: true,
 });
 
-// 固定ヘッダー
+/* 固定ヘッダー */
 const observedElement = document.getElementById('content');
-new FixHeader(observedElement); // eslint-disable-line
+new ScrollObserver(observedElement, 'is-fixed-header', { rootMargin: "0% 0% -90%" }); // eslint-disable-line
 
-// アコーディオン
+/* アコーディオン */
 const AcBtns = document.querySelectorAll(".js-btn"); // ボタン
 const AcDatas = document.querySelectorAll(".js-data"); // 開かせる要素
 new Accordion(AcBtns, AcDatas); // eslint-disable-line
-
 
 // イベント **********************************************************
 
@@ -80,11 +95,11 @@ document.addEventListener("DOMContentLoaded", () => {
 	loadWebFont( WebFont );
 	setGsapAnimation();
 	switchViewport(minWindowWidth);
-	defineInnerWidthUnit('ix');
+	// defineInnerWidthUnit('ix');
 }, false);
 
 // リサイズ時に処理
 window.addEventListener('resize', () => {
 	switchViewport(minWindowWidth);
-	defineInnerWidthUnit('ix');
+	// defineInnerWidthUnit('ix');
 }, false);
