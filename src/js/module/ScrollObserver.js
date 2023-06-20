@@ -2,7 +2,7 @@
  * ヘッダーを可変させるためのクラスオブジェクト
  */
 
-export default class scrollObserver {
+export default class ScrollObserver {
 
   /**
    * @param {*} observedElement 
@@ -61,7 +61,7 @@ export default class scrollObserver {
   }
 
   /**
-   * ルート要素からクラス名をセット
+   * ルート要素からクラス名を除去
    */
   removeClassName() {
 
