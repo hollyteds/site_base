@@ -68,12 +68,13 @@ src
 ├── js
 │   ├── main.js
 │   └── module
-│       ├── Accordion.js //アコーディオンのインスタンス
-│       ├── FixHeader.js //スクロール固定ヘッダーのインスタンス
-│       ├── MenuButton.js //メニューボタン実装用インスタンス
-│       ├── fixViewport.js //スモールデバイス対策ビューポート切替モジュール
-│       ├── loadWebFont.js //GoogleWebfont非同期読み込みモジュール
+│       ├── Accordion.js // アコーディオンのオブジェクトクラス
+│       ├── defineInnerWidthUnit.js // スクロールバーを除いた1/100の単位を定義する
+│       ├── fixViewport.js // ビューポート切替モジュール(スモールデバイス対策)
+│       ├── loadWebFont.js // GoogleWebfont非同期読み込みモジュール
+│       ├── MenuButton.js // メニューボタン実装用オブジェクトクラス
 │       ├── observeNavigation.js //今は使わない
+│       ├── ScrollObserver.js // 特定の要素を監視してヘッダーにクラスを追加するオブジェクトクラス
 │       ├── setAnimation.js //CSSアニメーションの発火設定用モジュール
 │       └── setGSAPAnimation.js // GSAPアニメーション設定モジュール
 └── scss
@@ -103,6 +104,8 @@ src
     │   └── _index.scss
     ├── main.scss
     ├── project
+    │   ├── _footer.scss
+    │   ├── _header.scss
     │   └── _index.scss
     ├── swiper-bundle.min.scss
     └── utility

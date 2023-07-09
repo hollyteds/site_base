@@ -5,14 +5,13 @@
 export default class ScrollObserver {
 
   /**
-   * @param {*} observedElement 
+   * @param {element} observedElement 
    * 監視する対象の要素、l-scrollObserverなど
-   * @param {*} className  (option)
+   * @param {string} className  (option)
    * イベントを検知した時にルート要素に追加するクラス名
-   * @param {*} observerOptions (option)
+   * @param {object} observerOptions (option)
    * 交差オブザーバーの設定
    */
-
   constructor( observedElement, className = 'is-scrolled', observerOptions ) {
   
     this.className = className;

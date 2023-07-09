@@ -32,7 +32,7 @@ export default class {
    */
   setStyle() {
     this.AcDatas.forEach(ele => {
-      const h = ele.children[0].clientHeight
+      const h = ele.children[0].clientHeight;
       ele.style.height = 0;
       ele.style.overflow = "hidden";
       ele.style.transition = "height 0.2s";
@@ -81,7 +81,7 @@ export default class {
     this.HeightArray.length = 0;
 
     this.AcDatas.forEach(ele => {
-      const h = ele.children[0].clientHeight
+      const h = ele.children[0].clientHeight;
       if (ele.parentNode.classList.contains("is-open")) ele.style.height = h + "px";
       this.HeightArray.push(h);
     });
@@ -100,10 +100,10 @@ export default class {
           this.isResize = true;
           if (this.w !== window.innerWidth) {
             this.onResize();
-          };
+          }
         });
         this.isResize = false;
-      };
+      }
     });
 
     this.AcBtns.forEach((ele, i) => {

@@ -13,8 +13,8 @@ body {
 	text-size-adjust: 100%;
 	font-family: 'Noto Sans CJK JP', sans-serif;
 	font-size: 1.6rem;
-	font-weight: 500;
-	line-height: 1.2;
+	font-weight: 400;
+	line-height: 1.3;
 
 	// @include g.mq(md) {
 	// 	min-width: 1120px;
@@ -26,9 +26,9 @@ a,a:link,a:visited,a:active,a:hover {
 	text-decoration: none;
 }
 
-p {
-	line-height: 1.8;
-}
+// p {
+// 	line-height: 1.8;
+// }
 
 sup {
 	vertical-align: super;

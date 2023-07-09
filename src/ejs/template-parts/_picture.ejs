@@ -1,101 +1,237 @@
 <%
-/**
- * @src = src,extns,
-*/
 
-//属性を代入
-let options = img.attr;
+class Picture {
 
-//
-const breakPoint = global.breakPoint;
-const path = global.path ? global.path : '';
+	/**
+	 * インスタンスプロパティ
+	 * @param {object} settings インスタンスの初期設定
+	 * @param {object} settings.breakPoints ブレイクポイントの識別名とその幅
+	 * @param {array} settings.srcset ブレイクポイントの識別名とその幅
+	 * @param {string} settings.path 画像データのディレクトリパス
+	 * @param {boolean} settings.webp webpを使うかどうか
+	 */
+	constructor( settings ) {
+		
+		// imageObjの初期化
+		this.imageObj = {};
 
-//webp対応するかどうか
-const hasWebp = ( 'webp' in img ) ? img.webp : false;
+		// 属性の初期化
+		this.attributes = {}; 
 
-//メディアクエリに対応するかどうか
-const hasMediaQuery = ( img.isMediaQuery ) && ( Object.keys(breakPoint).length !== 0 );
+		// レスポンシブイメージ
+		this.srcset = settings.srcset ? settings.srcset : false;
 
-//属性のデフォルト、設定ない場合に代入しておく
-if (!( 'alt' in options )) options.alt = '';
-if (!( 'loading' in options )) options.loading = 'lazy';
-if (!( 'decoding' in options )) options.decoding = 'async';
+		// ブレイクポイントの初期化
+		this.initialBreakPoints = settings.breakPoints ? settings.breakPoints : ''; 
 
-//メディアクエリ用の出力ソース初期化
-let mqSource  = ``;
+		// 初期パス
+		this.initialPath = settings.path ? settings.path : '';
 
-//ブレイクポイントもしくはseparateがtrueの場合に、ブレイクポイントに合わせた画像を出力する
-if( hasMediaQuery ) {
+		// レスポンシブイメージを切分けのデフォルト値を配列で指定
+		this.initialSrcset = settings.srcset ? settings.srcset : '';
 
-	Object.keys(breakPoint).forEach( key => {
+		// webpを持つかどうか
+		this.initialWebp = settings.webp ? settings.webp : false;
 
-		let webp = ``;
-		let mq = ``;
+	} 
 
-		mq += `\<source media="(max-width: ${breakPoint[key]}px)" srcset="`;
+	/**
+	 * codeSet 画像をpictureタグ含めて全て返す
+	 * @param {object} imageObj
+	 * @param {object} imageObj.breakPoints ブレイクポイントの識別名とその幅 (option)
+	 * @param {string} imageObj.path 画像データのディレクトリパス (option)
+	 * @param {boolean} imageObj.webp webpを使うかどうか (default:false)
+	 * @param {boolean} imageObj.isMediaQuery (default:false)
+	 * @param {string} imageObj.src 画像ファイル名 (必須)
+	 * @param {string} imageObj.extns 画像の拡張子 (必須)
+	 * @param {string} imageObj.srcset レスポンシブイメージ (option)
+	 * @param {object} imageObj.attr 属性の設定
+	 * @param {number} imageObj.attr.width width属性 (必須)
+	 * @param {number} imageObj.attr.width height属性 (必須)
+	 * @param {number} imageObj.attr.alt alt属性 (default: "")
+	 * @param {number} imageObj.attr.loading loading属性 (default: lazy)
+	 * @param {number} imageObj.attr.decoding decoding属性 (default: async)
+	 * @param {number} imageObj.attr.##### その他属性はキャメルケースで追加
+	 * @return {string} htmlでpictureタグ含めて全て
+	 */
+	codeSet(imageObj) {
 
-		//srcsetの指定がある場合の出力
-		if(img.srcset) {
-			img.srcset.forEach( size => {
-				mq += `${path}images/${img.src}-${key}@${size}.${img.extns} ${size}, `;
+		// imageObjチェック NGならエラーを返す
+		if( !this.checkImageObject(imageObj) ) return '\<!-- error -->';
+
+		// imageObjの代入
+		this.imageObj = imageObj;
+		// イメージごとで指定あれば優先する。なければインスタンス時の設定を利用
+		this.breakPoints = imageObj.breakPoints ? imageObj.breakPoints : this.initialBreakPoints;
+		// imagesディレクトリの接頭パス
+		this.path = imageObj.path ? imageObj.path : this.initialPath;
+		// webpの指定があればデフォルト値を上書き
+		this.hasWebp = ( 'webp' in imageObj ) ? imageObj.webp : this.initialWebp;
+		// svgの場合はwebp除外
+		this.hasWebp = imageObj.extns !== 'svg' ? this.hasWebp : false;
+		// メディアクエリで切り分けるか
+		this.hasBreakpoint = ( imageObj.isMediaQuery ) && ( Object.keys(this.breakPoints).length !== 0 );
+		// レスポンスイメージの切り分け
+		this.srcset = imageObj.srcset ? imageObj.srcset : this.initialSrcset;
+		// svgの場合はレスポンスイメージの切り分けをしない
+		this.srcset = imageObj.extns !== 'svg' ? this.srcset : false;
+		// 画像の属性値
+		this.attributes = imageObj.attr;
+
+		// 属性のデフォルト、設定ない場合に代入しておく
+		if (!( 'alt' in this.attributes )) this.attributes.alt = '';
+		if (!( 'loading' in this.attributes )) this.attributes.loading = 'lazy';
+		if (!( 'decoding' in this.attributes )) this.attributes.decoding = 'async';
+		
+		// 切り分けが必要な場合に出力にpictureタグを出力
+		let imageCode = ( this.hasBreakpoint || this.hasWebp ) ? '\<picture>' : '';
+
+		// webp対応であれば先に出力	
+		imageCode += this.hasWebp ? this.getMediaQuerySource('webp') : ''; 
+
+		// webp対応であれば先に出力	
+		imageCode += this.hasWebp ? this.getImageSource('webp') : ``;
+
+		// メディアクエリ対応
+		imageCode += this.hasBreakpoint ? this.getMediaQuerySource(this.imageObj.extns) : ''; 
+
+		// webp対応であれば先に出力	
+		imageCode += this.getImageSource(this.imageObj.extns);
+
+		// 切り分けが必要な場合に出力にpictureタグを出力
+		imageCode += ( this.hasBreakpoint || this.hasWebp ) ? '\</picture>' : '';
+
+		// 確認のためにターミナルに出力
+		console.log( imageCode );
+
+		return imageCode;
+
+	}
+
+	/**
+	 * getImageSource
+	 * @param {string} extension 拡張子
+	 * @return {string} imgまたはsource(webpかつメディアクエリの指定のない)をタグ単位で返す
+	 */
+	getImageSource (extension) {
+
+		let source = extension === 'webp' ? '\<source srcset=' : '\<img src=';
+		source += `"${this.path}${this.imageObj.src}.${extension}"`;
+
+		// webpの場合はtype属性を追加する
+		source += extension === 'webp' ? ` type="image/webp">` : `${this.getImageAttributes(extension)}>`;
+		return source;
+
+	}
+	
+	/**
+	 * getMediaQuerySource
+	 * @param {string} extension 拡張子
+	 * @return {string} sourceタグ（メデイアクエリ付き）を返す
+	 */
+	getMediaQuerySource (extension) {
+
+		// メディアクエリを切り分けない場合は戻る
+		if( !this.hasBreakpoint ) return '';
+
+		let source = '';
+
+		Object.keys(this.breakPoints).forEach( key => {
+
+			source += `\<source media="(max-width: ${this.breakPoints[key]}px)" srcset="`;
+
+			source += this.getSourceSet(key, extension);
+
+			// webpの場合はtype属性を追加する
+			source += extension === 'webp' ? `" type="image/webp">` : `">`; 
+			
+		});
+		
+		return source;
+
+	}
+
+	/**
+	 * getSourceSet
+	 * ブレイクポイントもしくはseparateがtrueの場合に、ブレイクポイントに合わせた画像を出力する
+	 * @param {string} extension 拡張子
+	 * @return {string} srcset属性の中身を返す
+	 */
+	getSourceSet (key, extension) {
+
+		let sourceSet = '';
+		const device = key ? '-' + key : '';
+
+		if( this.srcset ) {
+			this.srcset.forEach( size => {
+				sourceSet += `${this.path}${this.imageObj.src}${device}@${size}.${extension} ${size}, `;
 			});
 		}
+		sourceSet += `${this.path}${this.imageObj.src}${device}.${extension}`;
+		sourceSet += this.srcset ? ' 1x' : '';
 
-		mq += `${path}images/${img.src}-${key}.${img.extns}`;
-		mq += img.srcset ? ' 1x"' : '"';
+		return sourceSet;
 
-		//srcsetをそのままWebp用に拡張子だけ置き換える
-		webp += mq.replace( new RegExp(img.extns, 'g'), `${img.extns}.webp` );
-		webp += ` type="image/webp">`;
+	}
 
-		mq += `>`;
-		
-		//hasWebpがtrueならwebpの出力も追加
-		mqSource += hasWebp ? webp + mq : mq;
+	/**
+	 * getImageAttributes
+	 * 指定された属性を出力形式にする
+	 * @param {string} extension 拡張子
+	 * @return {string} 出力形式にされた属性を返す
+	 */
+	getImageAttributes(extension) {
 
-	});
+		let attributeCode = '';
 
+		// srcset属性の追加
+		if ( 'srcset' in this.imageObj ) {
+			attributeCode += ` srcset="${this.getSourceSet( '', extension )}"`;
+			attributeCode += ` sizes="(max-width: ${this.attributes.width}px) 100vw, ${this.attributes.width}px"`;
+		}
+
+		// 属性を出力形式にする
+		Object.keys(this.attributes).forEach( key => {
+			const attributesName = key === 'className' ? 'class' : this.convertCamelToKebab(key);
+			attributeCode += ` ${attributesName}="${this.attributes[key]}"`;
+		});
+
+		// webpの場合はtype属性を追加
+		attributeCode += extension === 'webp' ? ` type="image/webp"`: '';
+
+		return attributeCode;
+
+	}
+	
+	/**
+	 * convertCamelToKebab
+	 * @param {string} camelCaseString キャメルケースで書かれた英字文字列
+	 */
+	convertCamelToKebab(camelCaseString) {
+  	return camelCaseString.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+	}
+
+	/**
+	 * checkImageObject
+	 * 必須項目のチェック
+	 * @param {object} imageObj
+	 */
+	checkImageObject(imageObj) {
+		let massage = '';
+		if(!imageObj.src) massage += '- ファイル名が指定されていません';
+		if(!imageObj.extns) massage += '- 拡張子が指定されていません';
+		if(imageObj.extns) {
+			if( ![ 'jpg', 'jpeg', 'png', 'gif', 'svg' ].includes(imageObj.extns) ) massage += `- 拡張子${imageObj.extns}は不正です`;
+		}
+		if(!imageObj.attr.width) massage += '- width値が指定されていません';
+		if(!imageObj.attr.height) massage += '- height値が指定されていません';
+		if(imageObj.srcset && !Array.isArray(imageObj.srcset) )  massage += '- srcset値は配列である必要があります';
+		if(massage) { console.log(massage); return false; }
+		return true;
+	}
 }
 
-//attrの初期化
-let attr = '';
+// インスタンス化
+picture = new Picture(settings);
 
-let srcset = ``;
-let webpSource = ``;
-
-//srcset属性の追加
-if ( 'srcset' in img ) {
-
-	img.srcset.forEach( size => {
-		srcset += `${path}images/${img.src}@${size}.${img.extns} ${size}, `;
-	});
-	srcset += `${path}images/${img.src}.${img.extns} 1x`;
-	attr += ` srcset="${srcset}"`;
-	attr += ` sizes="(max-width: ${options.width}px) 100vw, ${options.width}px"`;
-
-}
-
-	webpSource += `\<source `;
-	webpSource += 'srcset' in img ? attr.replace( new RegExp(img.extns, 'g'), `${img.extns}.webp` ) : ` srcset="${path}images/${img.src}.${img.extns}.webp"`;
-	webpSource += ` type="image/webp">`
-
-//属性を出力形式にする
-Object.keys(options).forEach( key => {
-	attrName = key === 'className' ? 'class' : key;
-	attr += ' ' + attrName + '="' + options[key] + '"';
-});
-
-//出力変数の初期化
-let imageSource = '';
-
-if( hasMediaQuery || hasWebp ) { %><picture><% }
-
-	imageSource += hasMediaQuery ? mqSource : ``;
-
-	imageSource += hasWebp ? webpSource : ``;
-
-	imageSource += `\<img src="${path}images/${img.src}.${img.extns}"${attr}>`;
-
-	console.log( imageSource );
-
-%><%- imageSource %><% if( hasMediaQuery || hasWebp ) { %></picture><% } %>
+%>

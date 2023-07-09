@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "run-s js:min css:min ejs img font webp",
+    "build": "run-s js:min css:min ejs img webp",
     "ejs-css": "run-s css:min ejs",
     "js": "webpack",
     "js:min": "webpack --mode production",

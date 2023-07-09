@@ -1,8 +1,21 @@
-<%
-const global = {
-	breakPoint: { sp:767,tab:1200 },
-	path: '',
-	meta: {
+<%-
+	/**
+	 * @param {object} settings インスタンスの初期設定
+	 * @param {object} settings.breakPoints ブレイクポイントの識別名とその幅
+	 * @param {string} settings.path 画像データのディレクトリパス
+	 * @param {boolean} settings.webp webpを使うかどうか
+ 	 */ 
+	include( 'template-parts/_picture',{ settings : {
+		breakPoints: { 
+			sp:767,
+			// tab:1200
+		},
+		path: 'images/',
+		srcset: ['2x'],
+		webp: true
+	}});
+	%><% // includeはここでタグを閉じないとエラーが出る
+	const meta = {
 		title: 'ページタイトル',
 		description: 'ディスクリプション',
 		url: '',
@@ -13,9 +26,9 @@ const global = {
 			svg: '',
 			apple: '',
 		},
-	}
-};
-%><%- include( 'template-parts/_header',{ meta: global.meta } ) %>
+	};
+%>
+<%- include( 'template-parts/_header',{ meta } ) %>
 
 <div id="content" class="l-content">
 
@@ -24,12 +37,12 @@ const global = {
 <div id="main" class="l-main">
 
 <!-- 例 -->
-<%- include( 'template-parts/_picture',{ global, img:{ webp: true, src:'img_home-esports', extns:'jpg', isMediaQuery: false, srcset: [ '2x' ], attr:{ width:960, height:620, alt:'', className:'pp', decoding:'sync', loading:'eager' } } } ) %>
-
+<%- picture.codeSet( { src:'img_default', extns:'jpg', webp: true, isMediaQuery: true, attr:{ width:960, height:620, alt:'image', className:'image', decoding:'sync', loading:'eager',ariaHidden: true } } );%>
+<!-- 例（必須項目のみの場合） -->
+<%- picture.codeSet( { src:'img_default', extns:'png', isMediaQuery: true, attr:{ width:960, height:620 } } );%>
 
 </div><!-- l-main -->
 
 </div><!-- l-content -->
 
-
-<%- include( 'template-parts/_footer',{ meta: global.meta } ) %>
+<%- include( 'template-parts/_footer',{ meta } ) %>
