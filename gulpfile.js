@@ -1,30 +1,30 @@
-const gulp = require("gulp")
+const gulp = require("gulp");
 
-//開発モードと本番モード
+// 開発モードと本番モード
 const mode = require("gulp-mode")({
   modes: ["production", "development"],
   default: "development",
   verbose: false,
-})
+});
 
-//sass用パッケージの読込み
-const gulpDartSass = require("gulp-dart-sass")
-const gulpPostcss = require('gulp-postcss')
-const sassGlob = require("gulp-sass-glob-use-forward")
-const autoprefixer = require("gulp-autoprefixer")
-const sourcemaps = require("gulp-sourcemaps")
-const cleanCSS = require("gulp-clean-css")
-const mediaQueries = require("gulp-group-css-media-queries")
-const cssSorter = require('css-declaration-sorter')
+// sass用パッケージの読込み
+const gulpDartSass = require("gulp-dart-sass");
+const gulpPostcss = require('gulp-postcss');
+const sassGlob = require("gulp-sass-glob-use-forward");
+const autoprefixer = require("gulp-autoprefixer");
+const sourcemaps = require("gulp-sourcemaps");
+const cleanCSS = require("gulp-clean-css");
+const mediaQueries = require("gulp-group-css-media-queries");
+const cssSorter = require('css-declaration-sorter');
  
-//EJS用パッケージの読込み
-const rename = require("gulp-rename")
-const gulpEJS = require("gulp-ejs")
+// EJS用パッケージの読込み
+const rename = require("gulp-rename");
+const gulpEJS = require("gulp-ejs");
 
-//画像圧縮
-const imagemin = require('gulp-imagemin')
+// 画像圧縮
+const imagemin = require('gulp-imagemin');
 
-//webp
+// webp
 const gulpWebp = require('gulp-webp');
 
 // 変換元パス
@@ -47,7 +47,7 @@ const distPath = {
   'font': distBase + '/fonts'
 };
  
-//sassの処理
+// sassの処理
 const sass = () => {
   return gulp
     .src(srcPath.scss)
@@ -57,15 +57,15 @@ const sass = () => {
     .pipe(autoprefixer({
       cascade: false
     }))
-    .pipe(gulpPostcss([cssSorter({order: 'smacss'})]))
+    .pipe(gulpPostcss([cssSorter({ order: 'smacss' })]))
     .pipe(mediaQueries())
     .pipe(mode.development(sourcemaps.write()))
     .pipe(mode.production(cleanCSS()))
-    .pipe(gulp.dest(distPath.css))
-}
-exports.sass = sass
+    .pipe(gulp.dest(distPath.css));
+};
+exports.sass = sass;
 
-//ejsの処理
+// ejsの処理
 const ejs = () => {
   return gulp
     .src(srcPath.ejs)
@@ -73,60 +73,60 @@ const ejs = () => {
       ext: '.html'
     }))
     .pipe(rename({ extname: ".html" }))
-    .pipe(gulp.dest(distPath.html))
-}
-exports.ejs = ejs
+    .pipe(gulp.dest(distPath.html));
+};
+exports.ejs = ejs;
 
-//imageの複製
+// imageの複製
 const img = () => {
   return gulp
-  .src(srcPath.img)
+    .src(srcPath.img)
     .pipe(imagemin([
-        imagemin.gifsicle({interlaced: true}),
-        imagemin.mozjpeg({quality: 75, progressive: true}),
-        imagemin.optipng({optimizationLevel: 5}),
-        imagemin.svgo({
-            plugins: [
-                {removeViewBox: true},
-                {cleanupIDs: false}
-            ]
-        })
+      imagemin.gifsicle({ interlaced: true }),
+      imagemin.mozjpeg({ quality: 75, progressive: true }),
+      imagemin.optipng({ optimizationLevel: 5 }),
+      imagemin.svgo({
+        plugins: [
+          { removeViewBox: true },
+          { cleanupIDs: false }
+        ]
+      })
     ]))
-  .pipe(gulp.dest(distPath.img))
+    .pipe(gulp.dest(distPath.img));
   // .src(srcPath.img)
   // .pipe(gulp.dest(distPath.img))
-}
-exports.img = img
+};
+exports.img = img;
 
-//webp
+// webp
 const webp = () => {
   return gulp
     .src(srcPath.webp)
-    .pipe(rename(function(path) {
+    .pipe(rename(function (path) {
       path.basename += path.extname;
     }))
     .pipe(gulpWebp())
-		.pipe(gulp.dest(distPath.img))
-}
-exports.webp = webp
+    .pipe(gulp.dest(distPath.img));
+};
+exports.webp = webp;
 
-//fontの複製
+// fontの複製
 const font = () => {
   return gulp
     .src(srcPath.font)
-    .pipe(gulp.dest(distPath.font))
-}
-exports.font = font
+    .pipe(gulp.dest(distPath.font));
+};
+exports.font = font;
 
-//htaccessの複製
+// htaccessの複製
 const htaccess = () => {
   return gulp
     .src(srcPath.htaccess)
-    .pipe(gulp.dest(distPath.img))
-}
-exports.htaccess = htaccess
+    .pipe(gulp.dest(distPath.img));
+};
+exports.htaccess = htaccess;
 
-//watch
+// watch
 const watch = () => {
   return [
     gulp.watch(srcPath.scss, sass),
@@ -134,6 +134,6 @@ const watch = () => {
     gulp.watch(srcPath.img, img),
     gulp.watch(srcPath.webp, webp),
     gulp.watch(srcPath.font, font)
-  ]
-}
-exports.watch = watch
+  ];
+};
+exports.watch = watch;

@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <%-
 	/**
 	 * @param {object} settings インスタンスの初期設定
@@ -5,7 +6,7 @@
 	 * @param {string} settings.path 画像データのディレクトリパス
 	 * @param {boolean} settings.webp webpを使うかどうか
  	 */ 
-	include( 'template-parts/_picture',{ settings : {
+	include( 'module/_picture',{ settings : {
 		breakPoints: { 
 			sp:767,
 			// tab:1200
@@ -19,7 +20,7 @@
 		title: 'ページタイトル',
 		description: 'ディスクリプション',
 		url: '',
-		site_name: '',
+		siteName: '',
 		ogImage: '',
 		favicon: { 
 			1616: '',
@@ -28,21 +29,67 @@
 		},
 	};
 %>
+<html lang="ja">
+
+<head>
+<!-- Google Tag Manager -->
+
+<!-- End Google Tag Manager -->
+
+<meta charset="UTF-8">
+<meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+<title><%= meta.title %></title>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="description" content="<%= meta.description %>">
+<meta property="og:title" content="<%= meta.title %>">
+<meta property="og:type" content="website">
+<% if(meta.url) { %><meta property="og:url" content="<%= meta.url %>"><% } %>
+<% if(meta.siteName) { %><meta property="og:site_name" content="<%= meta.siteName %>"><% } %>
+<% if(meta.description) { %><meta property="og:description" content="<%= meta.description %>"><% } %>
+<% if(meta.ogImage) { %><meta property="og:image" content="<%= meta.ogImage %>">
+<meta name="twitter:card" content="summary_large_image"><% } %>
+<% if(meta.favicon.size16) { %><link rel="icon" sizes="16x16" href="<%= meta.favicon.size16 %>" /><% } %>
+<% if(meta.favicon.svg ) { %><link rel="icon" type="image/svg+xml" href="<%= meta.favicon.svg %>"><% } %>
+<% if(meta.favicon.apple) { %><link rel="apple-touch-icon" href="<%= meta.favicon.apple %>"><% } %>
+<script type="application/ld+json">
+	{
+		"@context": "http://schema.org",
+		"@type": "Article",
+		"headline": "",
+		"url": "<%= meta.url %>",
+		"author": {
+			"@type": "Organization",
+			"name": ""
+		},
+		"publisher": {
+			"@type": "Organization",
+			"name": ""
+		},
+		"description": "<%= meta.description %>"
+	}
+</script>
+<link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+	<!-- Google Tag Manager (noscript) -->
+
+	<!-- End Google Tag Manager (noscript) -->
+
+<!-- <svg style="display:none;"> %><%- include( 'template-parts/_svg' ); %></svg>-->
+
+<div class="l-global-wrapper">
+
 <%- include( 'template-parts/_header',{ meta } ) %>
 
-<div id="content" class="l-content">
-
-<!-- TOP AREA -->
-
-<div id="main" class="l-main">
-
-<!-- 例 -->
-<%- picture.codeSet( { src:'img_default', extns:'jpg', webp: true, isMediaQuery: true, attr:{ width:960, height:620, alt:'image', className:'image', decoding:'sync', loading:'eager',ariaHidden: true } } );%>
-<!-- 例（必須項目のみの場合） -->
-<%- picture.codeSet( { src:'img_default', extns:'png', isMediaQuery: true, attr:{ width:960, height:620 } } );%>
-
-</div><!-- l-main -->
-
-</div><!-- l-content -->
+<%- include( 'template-parts/_main',{ meta } ) %>
 
 <%- include( 'template-parts/_footer',{ meta } ) %>
+
+</div><!-- l-global-wrapper -->
+
+<script src="js/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,9 @@
+<main id="main" class="l-main">
+
+  <!-- 例 -->
+  <%- picture.codeSet( { src:'img_default', extns:'jpg', webp: true, isMediaQuery: true, attr:{ width:960, height:620, alt:'image', className:'image', decoding:'sync', loading:'eager',ariaHidden: true } } );%>
+  <!-- 例（必須項目のみの場合） -->
+  <%- picture.codeSet( { src:'img_default', extns:'png', isMediaQuery: true, attr:{ width:960, height:620 } } );%>
+  <%- picture.codeSet( { src:'img_default', extns:'svg', isMediaQuery: false, attr:{ width:960, height:620 } } );%>
+
+</main><!-- l-main -->
