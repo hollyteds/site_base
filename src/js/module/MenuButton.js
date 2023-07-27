@@ -7,9 +7,9 @@ import MicroModal from "micromodal";
 export default class {
 
 	/**
-	 * @param {*} className 
+	 * @param {*} className
 	 * 展開時にルート要素に付与するクラス名
-	 * @param {*} id 
+	 * @param {*} id
 	 * メニューボタンに付与するID
 	 */
 	constructor( className, id) {
@@ -21,9 +21,10 @@ export default class {
 	init() {
 
 		MicroModal.init({
-			disableScroll: true,
+      disableScroll: true,
+      openTrigger: this.id,
 		});
-		
+
 	}
 
 	toggle( elem ) {
@@ -37,36 +38,36 @@ export default class {
 		});
 
 	}
-	
+
 	open() {
 
 		this.addClassName( this.className );
-	
+
 		MicroModal.show( this.buttonId, {
 			disableScroll: true, // ページスクロールを無効に
 			awaitOpenAnimation: true, // 開閉時のアニメーションを可能に
 		});
-	
+
 	}
 
 	close() {
 
 		// ルート要素で展開時のクラスを持たないなら処理しない
 		if (!this.hasClassName()) return;
-		
+
 		this.removeClassName( this.className );
-	
+
 		MicroModal.close( this.buttonId, {
 			awaitCloseAnimation: true
 		});
-		
+
 	}
-	
+
 	hasClassName() {
 
 		return document.documentElement.classList.contains( this.className );
-	
-	} 
+
+	}
 
 	addClassName(className) {
 
@@ -82,10 +83,10 @@ export default class {
 	addCloseEvent(elem) {
 
 		elem.addEventListener('click', () => {
-	
+
 			this.close();
-	
+
 		});
-	
+
 	}
 }

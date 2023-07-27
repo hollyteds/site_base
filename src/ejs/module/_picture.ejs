@@ -11,18 +11,18 @@ class Picture {
 	 * @param {boolean} settings.webp webpを使うかどうか
 	 */
 	constructor( settings ) {
-		
+
 		// imageObjの初期化
 		this.imageObj = {};
 
 		// 属性の初期化
-		this.attributes = {}; 
+		this.attributes = {};
 
 		// レスポンシブイメージ
-		this.srcset = settings.srcset ? settings.srcset : false;
+		this.srcset = settings.srcset ? settings.srcset : [];
 
 		// ブレイクポイントの初期化
-		this.initialBreakPoints = settings.breakPoints ? settings.breakPoints : ''; 
+		this.initialBreakPoints = settings.breakPoints ? settings.breakPoints : '';
 
 		// 初期パス
 		this.initialPath = settings.path ? settings.path : '';
@@ -33,7 +33,7 @@ class Picture {
 		// webpを持つかどうか
 		this.initialWebp = settings.webp ? settings.webp : false;
 
-	} 
+	}
 
 	/**
 	 * codeSet 画像をpictureタグ含めて全て返す
@@ -82,20 +82,20 @@ class Picture {
 		if (!( 'alt' in this.attributes )) this.attributes.alt = '';
 		if (!( 'loading' in this.attributes )) this.attributes.loading = 'lazy';
 		if (!( 'decoding' in this.attributes )) this.attributes.decoding = 'async';
-		
+
 		// 切り分けが必要な場合に出力にpictureタグを出力
 		let imageCode = ( this.hasBreakpoint || this.hasWebp ) ? '\<picture>' : '';
 
-		// webp対応であれば先に出力	
-		imageCode += this.hasWebp ? this.getMediaQuerySource('webp') : ''; 
+		// webp対応であれば先に出力
+		imageCode += this.hasWebp ? this.getMediaQuerySource('webp') : '';
 
-		// webp対応であれば先に出力	
+		// webp対応であれば先に出力
 		imageCode += this.hasWebp ? this.getImageSource('webp') : ``;
 
 		// メディアクエリ対応
-		imageCode += this.hasBreakpoint ? this.getMediaQuerySource(this.imageObj.extns) : ''; 
+		imageCode += this.hasBreakpoint ? this.getMediaQuerySource(this.imageObj.extns) : '';
 
-		// webp対応であれば先に出力	
+		// webp対応であれば先に出力
 		imageCode += this.getImageSource(this.imageObj.extns);
 
 		// 切り分けが必要な場合に出力にpictureタグを出力
@@ -123,7 +123,7 @@ class Picture {
 		return source;
 
 	}
-	
+
 	/**
 	 * getMediaQuerySource
 	 * @param {string} extension 拡張子
@@ -143,10 +143,10 @@ class Picture {
 			source += this.getSourceSet(key, extension);
 
 			// webpの場合はtype属性を追加する
-			source += extension === 'webp' ? `" type="image/webp">` : `">`; 
-			
+			source += extension === 'webp' ? `" type="image/webp">` : `">`;
+
 		});
-		
+
 		return source;
 
 	}
@@ -185,7 +185,7 @@ class Picture {
 		let attributeCode = '';
 
 		// srcset属性の追加
-		if ( 'srcset' in this.imageObj ) {
+		if ( this.srcset.length ) {
 			attributeCode += ` srcset="${this.getSourceSet( '', extension )}"`;
 			attributeCode += ` sizes="(max-width: ${this.attributes.width}px) 100vw, ${this.attributes.width}px"`;
 		}
@@ -202,7 +202,7 @@ class Picture {
 		return attributeCode;
 
 	}
-	
+
 	/**
 	 * convertCamelToKebab
 	 * @param {string} camelCaseString キャメルケースで書かれた英字文字列
