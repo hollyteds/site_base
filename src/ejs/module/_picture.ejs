@@ -116,7 +116,7 @@ class Picture {
 	getImageSource (extension) {
 
 		let source = extension === 'webp' ? '\<source srcset=' : '\<img src=';
-		source += `"${this.path}${this.imageObj.src}.${extension}"`;
+		source += extension === 'webp' ? `"${this.getSourceSet( '', extension )}"` : `"${this.path}${this.imageObj.src}.${extension}"`;
 
 		// webpの場合はtype属性を追加する
 		source += extension === 'webp' ? ` type="image/webp">` : `${this.getImageAttributes(extension)}>`;
